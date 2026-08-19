@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zooto — простір турботи про тварин в Україні</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g)"/><circle cx="10" cy="14" r="5" fill="url(#g)"/><circle cx="38" cy="14" r="5" fill="url(#g)"/><circle cx="4" cy="26" r="4" fill="url(#g)"/><circle cx="44" cy="26" r="4" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+      Zooto
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Головна</a>
+      <a href="marketplace.html">Заводчикам і покупцям</a>
+      <a href="shelters.html">Притулкам</a>
+      <a href="cooperation.html">Співпраця</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="marketplace.html#buyer">Знайти хвостика</a>
+      <button class="nav-burger" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="mobile-drawer-top">
+    <span class="logo">Zooto</span>
+    <button class="mobile-drawer-close" style="width:40px;height:40px;border-radius:50%;background:var(--snow);border:1px solid var(--border-soft);" aria-label="Закрити">✕</button>
+  </div>
+  <a href="index.html">Головна</a>
+  <a href="marketplace.html">Заводчикам і покупцям</a>
+  <a href="shelters.html">Притулкам</a>
+  <a href="cooperation.html">Співпраця</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="orb-field"><div class="orb orb--1"></div><div class="orb orb--2"></div><div class="orb orb--3"></div></div>
+  <div class="container hero-grid">
+    <div class="reveal in-view">
+      <div class="eyebrow">Український зоо-простір</div>
+      <h1>Zooto — простір турботи про тварин в Україні</h1>
+      <p class="lead">Знаходь породистих вихованців від перевірених розплідників, усиновлюй хвостиків із притулків та оформлюй безпечну доставку по всій країні — в один клік.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="marketplace.html#buyer">
+          Знайти свого хвостика
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="shelters.html">Я притулок / волонтер</a>
+      </div>
+    </div>
+    <div class="reveal in-view" style="position:relative;">
+      <div class="card" style="background:var(--espresso-2); color:var(--snow); padding:8px; border-radius:var(--radius-lg); box-shadow:var(--shadow-lg); transform:rotate(2deg);">
+        <div style="background:var(--grad-sunset-soft); border-radius:calc(var(--radius-lg) - 8px); padding:26px; position:relative; overflow:hidden;">
+          <div style="display:flex; gap:10px; margin-bottom:18px;">
+            <span style="width:11px;height:11px;border-radius:50%;background:#FFB020;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#F26B38;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#E8383B;"></span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div style="background:var(--snow); border-radius:16px; padding:16px;">
+              <div style="width:100%;height:64px;border-radius:10px;background:var(--grad-sunset); opacity:.85; margin-bottom:10px;"></div>
+              <div style="font-family:var(--ff-display); font-weight:700; font-size:13px;">Кошеня, Київ</div>
+              <div style="font-size:11.5px; opacity:.55;">Перевірений розплідник</div>
+            </div>
+            <div style="background:var(--snow); border-radius:16px; padding:16px; margin-top:26px;">
+              <div style="width:100%;height:64px;border-radius:10px;background:var(--espresso); opacity:.85; margin-bottom:10px;"></div>
+              <div style="font-family:var(--ff-display); font-weight:700; font-size:13px;">Цуцик, Львів</div>
+              <div style="font-size:11.5px; opacity:.55;">З притулку · безкоштовно</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПРО ZOOTO ============ -->
+<section>
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center;">Про Zooto</div>
+      <h2>Родина людей, для яких хвостики — це сім'я</h2>
+      <p>Ми створили Zooto, бо самі безтямно любимо тварин. Zooto — це велика, тепла родина людей, для яких хвостики — це повноцінні члени сім'ї. Ми об'єднали в одному місці відповідальних заводчиків, турботливі притулки, волонтерів та майбутніх господарів, щоб шлях тварини до нового дому був безпечним, легким та сповненим любові.</p>
+    </div>
+
+    <div class="eyebrow center" style="justify-content:center; margin-bottom:24px;">Чому нам довіряють?</div>
+    <div class="grid grid-3 reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3 style="font-size:19px;">Безпека на першому місці</h3>
+        <p style="font-size:14.5px; opacity:.75;">Ми створили систему перевірки документів і безпечних угод, щоб захистити вас від шахраїв, а тварин — від недобросовісних рук.</p>
+      </div>
+      <div class="card reveal" style="--i:1">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </div>
+        <h3 style="font-size:19px;">Турбота про здоров'я</h3>
+        <p style="font-size:14.5px; opacity:.75;">Ми співпрацюємо лише з тими, хто дбає про щеплення, ветеринарні паспорти та належні умови утримання.</p>
+      </div>
+      <div class="card reveal" style="--i:2">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 9.5 17 9.5c1-2 0-3.5 0-3.5a7 7 0 0 1-2 13.9Z"/><path d="M8 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+        </div>
+        <h3 style="font-size:19px;">Велике добре серце</h3>
+        <p style="font-size:14.5px; opacity:.75;">Ми безкоштовно допомагаємо притулкам шукати господарів для спасенних тварин та просуваємо прозорі збори.</p>
+      </div>
+    </div>
+    <p class="center reveal" style="max-width:560px; margin:40px auto 0; font-weight:700; font-family:var(--ff-display); font-size:18px;">Zooto — це простір, де кожна лапка знаходить свою людину. Дякуємо, що ви з нами! 🐾</p>
+  </div>
+</section>
+
+<!-- ============ ОГОЛОШЕННЯ (placeholder) ============ -->
+<section style="background:var(--snow);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Каталог</div>
+      <h2>Оголошення</h2>
+      <p>Тут з'являться картки вихованців від заводчиків і притулків одразу після запуску кабінетів. Поки що показуємо, як це виглядатиме.</p>
+    </div>
+    <div class="grid grid-4 reveal-stagger">
+      <div class="listing-card reveal" style="--i:0">
+        <div class="listing-thumb"><span class="listing-tag">Розплідник</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></div>
+        <div class="listing-body"><h4>Британське кошеня</h4><p>Київ · очікує заповнення</p></div>
+      </div>
+      <div class="listing-card reveal" style="--i:1">
+        <div class="listing-thumb"><span class="listing-tag">Притулок</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></div>
+        <div class="listing-body"><h4>Метис, 1 рік</h4><p>Львів · безкоштовно</p></div>
+      </div>
+      <div class="listing-card reveal" style="--i:2">
+        <div class="listing-thumb"><span class="listing-tag">Розплідник</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></div>
+        <div class="listing-body"><h4>Цуценя корги</h4><p>Одеса · очікує заповнення</p></div>
+      </div>
+      <div class="listing-card reveal" style="--i:3">
+        <div class="listing-thumb"><span class="listing-tag">SOS</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg></div>
+        <div class="listing-body"><h4>Терміновий збір</h4><p>Харків · притулок</p></div>
+      </div>
+      <div class="listing-empty-note reveal">Реальні оголошення з'являться тут після підключення особистих кабінетів заводчиків і притулків 🐾</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ БУДЬМО НА ЗВ'ЯЗКУ ============ -->
+<section class="section-dark">
+  <div class="orb-field"><div class="orb orb--2" style="top:10%;left:10%;"></div><div class="orb orb--3" style="bottom:5%;right:5%;"></div></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="section-head reveal">
+      <div class="eyebrow">Спільнота</div>
+      <h2>Будьмо на зв'язку!</h2>
+      <p style="color:rgba(255,216,194,.75);">Zooto — це жива спільнота, де ми щодня спілкуємося, допомагаємо хвостикам та ділимося корисним. Долучайтеся до наших ресурсів у Telegram, щоб нічого не пропустити!</p>
+    </div>
+    <div class="grid grid-3 reveal-stagger">
+      <div class="tg-card reveal" style="--i:0">
+        <span class="tg-tag">Канал</span>
+        <h3>Zooto 🐾 Головний зоо-портал</h3>
+        <p>Новини платформи, корисні гайди з догляду за вихованцями, екстрені SOS-пости та прозорі збори для притулків. Усі найважливіші оновлення — в одному місці!</p>
+        <a class="btn btn-primary btn-sm" href="https://t.me/zooto_ua" target="_blank" rel="noopener">Перейти в канал</a>
+      </div>
+      <div class="tg-card reveal" style="--i:1">
+        <span class="tg-tag">Чат</span>
+        <h3>Простір для теплого спілкування</h3>
+        <p>Показуйте своїх улюбленців, запитуйте поради у досвідчених власників, знаходьте нових друзів та діліться милими фотографіями.</p>
+        <a class="btn btn-primary btn-sm" href="https://t.me/zooto_chat" target="_blank" rel="noopener">Приєднатись до чату</a>
+      </div>
+      <div class="tg-card reveal" style="--i:2">
+        <span class="tg-tag">Бот-помічник</span>
+        <h3>@zooto_helper_bot</h3>
+        <p>Ваш особистий помічник. Через нього можна швидко поставити запитання менеджеру, подати заявку на модерацію, узгодити збір або повідомити про термінову ситуацію.</p>
+        <a class="btn btn-primary btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Написати боту</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUICK NAV ============ -->
+<section>
+  <div class="container">
+    <div class="grid grid-3 reveal-stagger">
+      <a class="card reveal" style="--i:0" href="marketplace.html">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <h3 style="font-size:19px;">Заводчикам і покупцям</h3>
+        <p style="font-size:14.5px; opacity:.7; margin-bottom:0;">Розміщуйте оголошення або знаходьте вихованця з безпечною угодою.</p>
+      </a>
+      <a class="card reveal" style="--i:1" href="shelters.html">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+        <h3 style="font-size:19px;">Притулкам і волонтерам</h3>
+        <p style="font-size:14.5px; opacity:.7; margin-bottom:0;">Безкоштовна платформа для пошуку домівок вашим підопічним.</p>
+      </a>
+      <a class="card reveal" style="--i:2" href="cooperation.html">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+        <h3 style="font-size:19px;">Співпраця</h3>
+        <p style="font-size:14.5px; opacity:.7; margin-bottom:0;">Волонтери, зообренди, ветклініки, блогери та ідеї — приєднуйтесь.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g2)"/><circle cx="10" cy="14" r="5" fill="url(#g2)"/><circle cx="38" cy="14" r="5" fill="url(#g2)"/><circle cx="4" cy="26" r="4" fill="url(#g2)"/><circle cx="44" cy="26" r="4" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+          Zooto
+        </div>
+        <p style="font-size:14px; opacity:.6; max-width:32ch;">Простір турботи про тварин в Україні.</p>
+      </div>
+      <div>
+        <h4>Платформа</h4>
+        <a href="index.html">Головна</a>
+        <a href="marketplace.html">Заводчикам і покупцям</a>
+        <a href="shelters.html">Притулкам</a>
+        <a href="cooperation.html">Співпраця</a>
+      </div>
+      <div>
+        <h4>Спільнота</h4>
+        <a href="https://t.me/zooto_ua" target="_blank" rel="noopener">Telegram-канал</a>
+        <a href="https://t.me/zooto_chat" target="_blank" rel="noopener">Telegram-чат</a>
+        <a href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Бот-помічник</a>
+      </div>
+      <div>
+        <h4>Партнерам</h4>
+        <a href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+        <a href="cooperation.html">Умови співпраці</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zooto. Простір, де кожна лапка знаходить свою людину.</span>
+      <span>Зроблено з 🧡 в Україні</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Притулкам та волонтерам — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<header class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g)"/><circle cx="10" cy="14" r="5" fill="url(#g)"/><circle cx="38" cy="14" r="5" fill="url(#g)"/><circle cx="4" cy="26" r="4" fill="url(#g)"/><circle cx="44" cy="26" r="4" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+      Zooto
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Головна</a>
+      <a href="marketplace.html">Заводчикам і покупцям</a>
+      <a href="shelters.html" class="active">Притулкам</a>
+      <a href="cooperation.html">Співпраця</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="#form" data-modal-open="modal-shelter">Подати анкету</a>
+      <button class="nav-burger" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="mobile-drawer-top">
+    <span class="logo">Zooto</span>
+    <button class="mobile-drawer-close" style="width:40px;height:40px;border-radius:50%;background:var(--snow);border:1px solid var(--border-soft);" aria-label="Закрити">✕</button>
+  </div>
+  <a href="index.html">Головна</a>
+  <a href="marketplace.html">Заводчикам і покупцям</a>
+  <a href="shelters.html">Притулкам</a>
+  <a href="cooperation.html">Співпраця</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="orb-field"><div class="orb orb--1"></div><div class="orb orb--2"></div><div class="orb orb--3"></div></div>
+  <div class="container hero-grid">
+    <div class="reveal in-view">
+      <div class="eyebrow">Для притулків та волонтерів</div>
+      <h1 style="font-size:clamp(30px,4.2vw,50px);">Вашим підопічним потрібен дім? Ми допоможемо знайти його швидше!</h1>
+      <p class="lead">Zooto надає безкоштовну платформу та аудиторію, щоб ваші хвостики стали помітними. Ми безкоштовно розміщуємо оголошення, допомагаємо з SOS-запитами та просуваємо прозорі збори. Усі послуги Zooto для притулків є абсолютно безкоштовними.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" data-modal-open="modal-shelter">
+          Подати анкету притулку
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <a class="btn btn-ghost" href="cooperation.html#volunteers">Я приватний волонтер</a>
+      </div>
+    </div>
+    <div class="reveal in-view">
+      <div class="card" style="background:var(--espresso-2); padding:32px; border-radius:var(--radius-lg);">
+        <span class="tg-tag" style="margin-bottom:16px;">Безкоштовно назавжди</span>
+        <div style="font-family:var(--ff-display); color:var(--snow); font-weight:700; font-size:22px; margin-bottom:10px;">Давайте знаходити родини для спасенних тварин разом!</div>
+        <p style="color:rgba(255,216,194,.75); font-size:14.5px; margin-bottom:0;">Розміщення, SOS-пости та прозорі збори — без жодної комісії для притулків.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY FREE ============ -->
+<section style="background:var(--snow);">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Чому безкоштовно</div>
+      <h2>Тому що ми самі безтямно любимо тварин</h2>
+      <p>Безкоштовна платформа для притулків — це найменше, що ми можемо зробити для тих, хто щодня рятує життя. Для команди Zooto кожен хвостик, який знаходить дім — це справжнє спільне свято!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section>
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center;">Як це працює</div>
+      <h2>Три кроки для притулків</h2>
+    </div>
+    <div class="steps reveal-stagger">
+      <div class="step reveal" style="--i:0"><div class="step-num">1</div><h3>Заповніть анкету</h3><p>Натискайте кнопку нижче та надайте базову інформацію про ваш притулок чи волонтерську організацію.</p></div>
+      <div class="step reveal" style="--i:1"><div class="step-num">2</div><h3>Пройдіть перевірку</h3><p>Наші модератори швидко перевірять дані та нададуть вам особистий доступ до платформи.</p></div>
+      <div class="step reveal" style="--i:2"><div class="step-num">3</div><h3>Допомагайте хвостикам</h3><p>Публікуйте підопічних, оголошуйте про збори (2 на місяць, SOS — позачергово) та залучайте нову аудиторію.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="background:var(--snow);">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center;">FAQ</div>
+      <h2>Часті запитання</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Чому це безкоштовно?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Тому що ми самі безтямно любимо тварин і понад усе прагнемо їм допомогти. Безкоштовна платформа для притулків — це найменше, що ми можемо зробити для тих, хто щодня рятує життя. Для команди Zooto кожен хвостик, який знаходить дім — це справжнє спільне свято!</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Як працювати волонтерам, якщо ви не офіційний притулок?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Якщо ви приватний волонтер, куратор або опікун тварин, ми також раді співпраці! Переходьте у вкладку «Співпраця» — там ви знайдете всі деталі, як подати заявку та отримати доступ до розміщення тварин.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Скільки часу займає модерація анкет?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Зазвичай ми перевіряємо дані протягом 24 годин. Наша команда намагається опрацьовувати заявки максимально оперативно, щоб ви могли якнайшвидше публікувати своїх підопічних.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Чому є ліміт на 2 збори на місяць?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Ми прагнемо, щоб спільнота довіряла кожному збору та не перевантажувалася інформацією. Ліміт допомагає тримати фокус аудиторії та закривати потреби якісно. Проте якщо у вас екстрене ЧП чи SOS-ситуація — одразу пишіть модераторам у бота, і ми опублікуємо збір позачергово.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Як ви перевіряєте потенційних господарів?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Люди, які хочуть усиновити тварину, заповнюють первинну анкету на сайті. Ви отримуєте контакти вже підготовлених кандидатів, а остаточне рішення про передачу хвостика завжди залишається за вами.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Чи можна розміщувати тварин з інших міст?<span class="plus"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">Так! Zooto працює по всій Україні. Головне — вказувати точне місто, де перебуває тварина, та зазначити, чи можлива зоодоставка в інші регіони.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section-dark">
+  <div class="orb-field"><div class="orb orb--2"></div><div class="orb orb--3"></div></div>
+  <div class="container center reveal" style="position:relative; z-index:1; max-width:600px;">
+    <h2>Давайте знаходити родини для спасенних тварин разом!</h2>
+    <p style="color:rgba(255,216,194,.75); margin-bottom:30px;">Подайте анкету — і вже за 24 години ваші підопічні зможуть з'явитись у каталозі Zooto.</p>
+    <button class="btn btn-primary" data-modal-open="modal-shelter">Подати анкету притулку</button>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g2)"/><circle cx="10" cy="14" r="5" fill="url(#g2)"/><circle cx="38" cy="14" r="5" fill="url(#g2)"/><circle cx="4" cy="26" r="4" fill="url(#g2)"/><circle cx="44" cy="26" r="4" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+          Zooto
+        </div>
+        <p style="font-size:14px; opacity:.6; max-width:32ch;">Простір турботи про тварин в Україні.</p>
+      </div>
+      <div>
+        <h4>Платформа</h4>
+        <a href="index.html">Головна</a>
+        <a href="marketplace.html">Заводчикам і покупцям</a>
+        <a href="shelters.html">Притулкам</a>
+        <a href="cooperation.html">Співпраця</a>
+      </div>
+      <div>
+        <h4>Спільнота</h4>
+        <a href="https://t.me/zooto_ua" target="_blank" rel="noopener">Telegram-канал</a>
+        <a href="https://t.me/zooto_chat" target="_blank" rel="noopener">Telegram-чат</a>
+        <a href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Бот-помічник</a>
+      </div>
+      <div>
+        <h4>Партнерам</h4>
+        <a href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+        <a href="cooperation.html">Умови співпраці</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zooto. Простір, де кожна лапка знаходить свою людину.</span>
+      <span>Зроблено з 🧡 в Україні</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-backdrop" id="modal-shelter">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <div class="modal-form">
+      <h3>Анкета притулку / волонтера</h3>
+      <p class="sub">Розкажіть про вашу організацію — перевіримо дані протягом 24 годин.</p>
+      <form>
+        <div class="field"><label>Назва притулку / ім'я волонтера</label><input type="text" required placeholder="Напр. Притулок Хвостики"></div>
+        <div class="field"><label>Місто</label><input type="text" required placeholder="Місто"></div>
+        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
+        <div class="field"><label>Статус</label><select><option>Офіційний притулок</option><option>Приватний волонтер</option></select></div>
+        <button class="btn btn-primary" type="submit">Надіслати анкету</button>
+      </form>
+    </div>
+    <div class="modal-success" style="display:none;">
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Дякуємо!</h3>
+      <p class="sub">Анкету надіслано. Ми перевіримо дані протягом 24 годин.</p>
+    </div>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

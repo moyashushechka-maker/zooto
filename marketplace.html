@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заводчикам і покупцям — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<header class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g)"/><circle cx="10" cy="14" r="5" fill="url(#g)"/><circle cx="38" cy="14" r="5" fill="url(#g)"/><circle cx="4" cy="26" r="4" fill="url(#g)"/><circle cx="44" cy="26" r="4" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+      Zooto
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Головна</a>
+      <a href="marketplace.html" class="active">Заводчикам і покупцям</a>
+      <a href="shelters.html">Притулкам</a>
+      <a href="cooperation.html">Співпраця</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="#buyer">Знайти хвостика</a>
+      <button class="nav-burger" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="mobile-drawer-top">
+    <span class="logo">Zooto</span>
+    <button class="mobile-drawer-close" style="width:40px;height:40px;border-radius:50%;background:var(--snow);border:1px solid var(--border-soft);" aria-label="Закрити">✕</button>
+  </div>
+  <a href="index.html">Головна</a>
+  <a href="marketplace.html">Заводчикам і покупцям</a>
+  <a href="shelters.html">Притулкам</a>
+  <a href="cooperation.html">Співпраця</a>
+</div>
+
+<!-- ============ TOP: switcher hero ============ -->
+<section class="hero" style="padding-bottom:40px;">
+  <div class="orb-field"><div class="orb orb--1"></div><div class="orb orb--2"></div></div>
+  <div class="container center reveal in-view" style="position:relative; z-index:2; max-width:720px;">
+    <div class="eyebrow" style="justify-content:center;">Оберіть, хто ви</div>
+    <h1 style="font-size:clamp(28px,4vw,44px);">Заводчикам і покупцям</h1>
+    <p class="lead center" style="margin:0 auto 30px;">Одна платформа, дві сторони безпечної угоди. Перемикайтеся між режимами — інтерфейс підлаштується під вас.</p>
+    <div class="switcher" data-active="0">
+      <div class="switcher-thumb"></div>
+      <button data-audience="breeder" class="active">Я заводчик</button>
+      <button data-audience="buyer">Я хочу купити</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BREEDER PANEL
+     ============================================================ -->
+<div id="panel-breeder" class="audience-panel active">
+
+  <section class="section-tight">
+    <div class="container hero-grid" style="align-items:center;">
+      <div class="reveal">
+        <div class="eyebrow">Для заводчиків та розплідників</div>
+        <h2 style="font-size:clamp(26px,3.4vw,38px);">Якщо ви займаєтеся розведенням тварин — Zooto створений для вас 🌿</h2>
+        <p style="font-size:16.5px; opacity:.78;">Zooto — це ідеальне місце для відповідальних заводчиків та розплідників. Наша головна мета — створити простір, де ви зможете спокійно знаходити добросовісних, турботливих господарів для своїх вихованців без ризику натрапити на шахраїв.</p>
+        <p style="font-size:16.5px; opacity:.78;">Ми беремо на себе турботу про вашу захищеність: забезпечуємо безпечні угоди, прозорі умови та перевірку покупців. З нами ви можете бути впевнені, що ваша праця цінується, а кожен малюк потрапить у надійні руки! 🐾</p>
+        <button class="btn btn-primary" data-modal-open="modal-breeder">
+          Подати анкету заводчика
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="reveal">
+        <div class="card" style="background:var(--espresso-2); padding:32px; border-radius:var(--radius-lg);">
+          <div class="icon-badge" style="background:var(--grad-sunset);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--snow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div style="font-family:var(--ff-display); color:var(--snow); font-weight:700; font-size:20px; margin-bottom:8px;">Комісія лише 5%</div>
+          <p style="color:rgba(255,216,194,.75); font-size:14.5px; margin-bottom:0;">Сплачується тільки після успішного завершення угоди — жодних прихованих платежів наперед.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--snow); padding-top:64px;">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">Як це працює</div>
+        <h2>Три кроки до перших продажів</h2>
+      </div>
+      <div class="steps reveal-stagger">
+        <div class="step reveal" style="--i:0"><div class="step-num">1</div><h3>Заповніть анкету</h3><p>Натисніть кнопку нижче та надішліть дані про ваш розплідник або вихованців.</p></div>
+        <div class="step reveal" style="--i:1"><div class="step-num">2</div><h3>Пройдіть модерацію</h3><p>Наші менеджери перевірять інформацію та відкриють доступ до особистого кабінету.</p></div>
+        <div class="step reveal" style="--i:2"><div class="step-num">3</div><h3>Розвивайте свою справу</h3><p>Публікуйте вихованців із фото та родоводом, просувайте оголошення та проводьте безпечні угоди.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">FAQ</div>
+        <h2>Часті запитання від заводчиків</h2>
+      </div>
+      <div class="faq reveal">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Скільки коштує розміщення оголошень?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Базове розміщення оголошень безкоштовне. Додатково ви можете замовляти платні послуги просування: підняття оголошення вгору каталогу або розміщення вашого банера на головній сторінці.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Як саме працює «Безпечна угода» для продавця?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">При оформленні замовлення покупець вносить оплату на спеціальний захищений рахунок платформи. Гроші заморожуються та перераховуються вам одразу після того, як покупець отримує вихованця й підтверджує, що з твариною все гаразд. Це на 100% захищає вас від шахраїв та «неоплачених» відправок.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Які документи потрібні для проходження модерації?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Щоб отримати статус перевіреного розплідника, потрібно надати документи про реєстрацію (якщо є), ветеринарні паспорти з відмітками про щеплення, а також фото/відео умов утримання тварин.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Що робити, якщо покупець безпідставно відмовляється забирати тварину?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">У разі виникнення спірних ситуацій підключається служба арбітражу Zooto. Ми перевіряємо всі деталі угоди, відеофіксацію перед відправкою та умови договору, щоб захистити ваші інтереси та покрити витрати на зворотну доставку.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Яка комісія сайту при продажу?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Комісія Zooto становить 5% від суми угоди. Цей відсоток покриває безпечне проведення платежу, роботу служби арбітражу та технічну підтримку платформи. Ви сплачуєте комісію лише тоді, коли угода успішно завершена, а вихованець вже прямує до нового дому.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================
+     BUYER PANEL
+     ============================================================ -->
+<div id="panel-buyer" class="audience-panel">
+
+  <section class="section-tight">
+    <div class="container hero-grid" style="align-items:center;">
+      <div class="reveal">
+        <div class="eyebrow">Для покупців</div>
+        <h2 style="font-size:clamp(26px,3.4vw,38px);">Знайдіть свого хвостика — безпечно і з любов'ю 🧡</h2>
+        <p style="font-size:16.5px; opacity:.78;">Обирайте вихованця — шукайте породисте кошеня чи цуценя від перевірених розплідників або забирайте хвостика з притулку безкоштовно.</p>
+        <button class="btn btn-primary" data-modal-open="modal-buyer">
+          Знайти свого хвостика
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
+      <div class="reveal">
+        <div class="card" style="background:var(--espresso-2); padding:32px; border-radius:var(--radius-lg);">
+          <div class="icon-badge" style="background:var(--grad-sunset);"><svg viewBox="0 0 24 24" fill="none" stroke="var(--snow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+          <div style="font-family:var(--ff-display); color:var(--snow); font-weight:700; font-size:20px; margin-bottom:8px;">100% захист від шахраїв</div>
+          <p style="color:rgba(255,216,194,.75); font-size:14.5px; margin-bottom:0;">Кошти бронюються на захищеному рахунку та переходять продавцю лише після вашого підтвердження.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--snow); padding-top:64px;">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">Як це працює</div>
+        <h2>Три кроки до нового улюбленця</h2>
+      </div>
+      <div class="steps reveal-stagger">
+        <div class="step reveal" style="--i:0"><div class="step-num">1</div><h3>Обирайте вихованця</h3><p>Шукайте породисте кошеня чи цуценя від перевірених розплідників або забирайте хвостика з притулку безкоштовно.</p></div>
+        <div class="step reveal" style="--i:1"><div class="step-num">2</div><h3>Оформлюйте Безпечну угоду</h3><p>Ваші кошти бронюються на захищеному рахунку платформи та перераховуються продавцю лише після того, як ви отримаєте й перевірите тварину.</p></div>
+        <div class="step reveal" style="--i:2"><div class="step-num">3</div><h3>Замовляйте дбайливу доставку</h3><p>Узгоджуйте зручний спосіб та час: ми допоможемо організувати комфортне зоотаксі просто до ваших дверей.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">Переваги</div>
+        <h2>Що ви отримуєте з Zooto</h2>
+      </div>
+      <div class="grid grid-4 reveal-stagger">
+        <div class="card reveal" style="--i:0">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3 style="font-size:16.5px;">100% захист від шахраїв</h3>
+          <p style="font-size:13.5px; opacity:.7; margin:0;">Жодних сумнівних передплат «на картку» без гарантій.</p>
+        </div>
+        <div class="card reveal" style="--i:1">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+          <h3 style="font-size:16.5px;">Здорового улюбленця</h3>
+          <p style="font-size:13.5px; opacity:.7; margin:0;">Усі тварини мають ветеринарні паспорти та необхідні щеплення.</p>
+        </div>
+        <div class="card reveal" style="--i:2">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6M5 4h14v16H5z"/></svg></div>
+          <h3 style="font-size:16.5px;">Офіційні документи</h3>
+          <p style="font-size:13.5px; opacity:.7; margin:0;">Родовід та документи розплідника для породистих тварин.</p>
+        </div>
+        <div class="card reveal" style="--i:3">
+          <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3 style="font-size:16.5px;">Постійну підтримку</h3>
+          <p style="font-size:13.5px; opacity:.7; margin:0;">Консультації щодо догляду, харчування та адаптації в перші дні.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--snow);">
+    <div class="container">
+      <div class="section-head center reveal">
+        <div class="eyebrow" style="justify-content:center;">FAQ</div>
+        <h2>Часті запитання від покупців</h2>
+      </div>
+      <div class="faq reveal">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Як працює «Безпечна угода» для покупця?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Ви оплачуєте замовлення на сайті, але гроші не йдуть одразу продавцю — вони заморожуються на захищеному рахунку платформи. Продавець отримує оплату лише після того, як ви зустрінете вихованця, перевірите його стан та підтвердите, що все добре.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Що робити, якщо тварина захворіла в дорозі або стан не відповідає заявленому?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Якщо при отриманні ви виявили проблеми зі здоров'ям або невідповідність з оголошенням, одразу фіксуйте це на фото/відео та звертайтеся до нашої служби підтримки. Ми зупинимо транзакцію, залучимо арбітраж та повернемо вам кошти або організуємо ветеринарний огляд.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Скільки коштує доставка тварини?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Вартість зоодоставки розраховується індивідуально залежно від відстані, розміру тварини та вибраного транспорту (спеціалізоване зоотаксі або кур'єр). Точну суму ви побачите при оформленні замовлення.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Як перевірити родовід та щеплення перед покупкою?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">У картці кожного вихованця від перевіреного розплідника прикріплені скани паспортів та документів. Крім того, ви завжди можете запросити відеодзвінок із продавцем через наш чат, щоб побачити малюка та його документи в режимі реального часу.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">Чи потрібно щось платити, якщо я беру тварину з притулку?<span class="plus"></span></button>
+          <div class="faq-a"><div class="faq-a-inner">Ні! Усі тварини з притулків віддаються абсолютно безкоштовно. Ви сплачуєте лише за доставку (якщо потрібне зоотаксі в інше місто) або за бажанням можете зробити добровільний внесок на підтримку притулку.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g2)"/><circle cx="10" cy="14" r="5" fill="url(#g2)"/><circle cx="38" cy="14" r="5" fill="url(#g2)"/><circle cx="4" cy="26" r="4" fill="url(#g2)"/><circle cx="44" cy="26" r="4" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+          Zooto
+        </div>
+        <p style="font-size:14px; opacity:.6; max-width:32ch;">Простір турботи про тварин в Україні.</p>
+      </div>
+      <div>
+        <h4>Платформа</h4>
+        <a href="index.html">Головна</a>
+        <a href="marketplace.html">Заводчикам і покупцям</a>
+        <a href="shelters.html">Притулкам</a>
+        <a href="cooperation.html">Співпраця</a>
+      </div>
+      <div>
+        <h4>Спільнота</h4>
+        <a href="https://t.me/zooto_ua" target="_blank" rel="noopener">Telegram-канал</a>
+        <a href="https://t.me/zooto_chat" target="_blank" rel="noopener">Telegram-чат</a>
+        <a href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Бот-помічник</a>
+      </div>
+      <div>
+        <h4>Партнерам</h4>
+        <a href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+        <a href="cooperation.html">Умови співпраці</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zooto. Простір, де кожна лапка знаходить свою людину.</span>
+      <span>Зроблено з 🧡 в Україні</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-backdrop" id="modal-breeder">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <div class="modal-form">
+      <h3>Анкета заводчика</h3>
+      <p class="sub">Заповніть базові дані — після модерації ми відкриємо доступ до кабінету.</p>
+      <form>
+        <div class="field"><label>Ім'я / назва розплідника</label><input type="text" required placeholder="Напр. Cattery Sonce"></div>
+        <div class="field"><label>Місто</label><input type="text" required placeholder="Київ"></div>
+        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
+        <div class="field"><label>Про кого йдеться</label><select><option>Коти</option><option>Собаки</option><option>Інше</option></select></div>
+        <button class="btn btn-primary" type="submit">Надіслати анкету</button>
+      </form>
+    </div>
+    <div class="modal-success" style="display:none;">
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Дякуємо!</h3>
+      <p class="sub">Анкету надіслано. Ми зв'яжемось із вами після модерації.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-buyer">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <div class="modal-form">
+      <h3>Знайти свого хвостика</h3>
+      <p class="sub">Розкажіть, кого шукаєте — підберемо варіанти з каталогу.</p>
+      <form>
+        <div class="field"><label>Кого шукаєте</label><select><option>Кошеня</option><option>Цуценя</option><option>Дорослу тварину з притулку</option></select></div>
+        <div class="field"><label>Місто</label><input type="text" required placeholder="Ваше місто"></div>
+        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
+        <button class="btn btn-primary" type="submit">Підібрати варіанти</button>
+      </form>
+    </div>
+    <div class="modal-success" style="display:none;">
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h3>Дякуємо!</h3>
+      <p class="sub">Ми підберемо для вас варіанти й напишемо в Telegram.</p>
+    </div>
+  </div>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

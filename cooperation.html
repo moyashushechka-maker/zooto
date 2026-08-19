@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Співпраця — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<header class="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g)"/><circle cx="10" cy="14" r="5" fill="url(#g)"/><circle cx="38" cy="14" r="5" fill="url(#g)"/><circle cx="4" cy="26" r="4" fill="url(#g)"/><circle cx="44" cy="26" r="4" fill="url(#g)"/><defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+      Zooto
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Головна</a>
+      <a href="marketplace.html">Заводчикам і покупцям</a>
+      <a href="shelters.html">Притулкам</a>
+      <a href="cooperation.html" class="active">Співпраця</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="mailto:zooto.partner@gmail.com">Написати нам</a>
+      <button class="nav-burger" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer">
+  <div class="mobile-drawer-top">
+    <span class="logo">Zooto</span>
+    <button class="mobile-drawer-close" style="width:40px;height:40px;border-radius:50%;background:var(--snow);border:1px solid var(--border-soft);" aria-label="Закрити">✕</button>
+  </div>
+  <a href="index.html">Головна</a>
+  <a href="marketplace.html">Заводчикам і покупцям</a>
+  <a href="shelters.html">Притулкам</a>
+  <a href="cooperation.html">Співпраця</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="orb-field"><div class="orb orb--1"></div><div class="orb orb--2"></div><div class="orb orb--3"></div></div>
+  <div class="container center reveal in-view" style="position:relative; z-index:2; max-width:720px;">
+    <div class="eyebrow" style="justify-content:center;">Партнерство</div>
+    <h1 style="font-size:clamp(30px,4.4vw,50px);">Відкриті до нових ідей та партнерства!</h1>
+    <p class="lead center" style="margin:0 auto 30px;">Zooto щодня працює над тим, щоб зробити світ тварин безпечнішим та зручнішим. Ми віримо, що великі справи робляться разом, тому завжди відкриті до цікавих проєктів, знайомств та синергії!</p>
+    <div class="coop-contact" style="justify-content:center;">
+      <a class="btn btn-primary" href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+      <a class="btn btn-ghost" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Написати в Telegram-бот</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORY TABS ============ -->
+<section style="background:var(--snow); padding-top:56px;">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center;">З ким ми співпрацюємо</div>
+      <h2>Оберіть свій напрям</h2>
+      <p>Натисніть на картку — нижче розгорнуться деталі співпраці саме для вас.</p>
+    </div>
+
+    <div class="coop-cats reveal-stagger">
+      <div class="coop-cat reveal active" style="--i:0" data-coop="volunteers">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+        <span>Волонтери та зоозахисники</span>
+      </div>
+      <div class="coop-cat reveal" style="--i:1" data-coop="shops">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1.5 11H4.5L3 9Z"/><path d="M8 9V6a4 4 0 0 1 8 0v3"/></svg></div>
+        <span>Зоомагазини та бренди</span>
+      </div>
+      <div class="coop-cat reveal" style="--i:2" data-coop="vets">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <span>Ветеринарні клініки</span>
+      </div>
+      <div class="coop-cat reveal" style="--i:3" data-coop="bloggers">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <span>Блогери та медіа</span>
+      </div>
+      <div class="coop-cat reveal" style="--i:4" data-coop="ideas">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.9V16h5v-1.2c0-.8.4-1.5 1-1.9A6 6 0 0 0 12 2Z"/></svg></div>
+        <span>Усі, хто має ідеї</span>
+      </div>
+    </div>
+
+    <div id="coop-detail-wrap">
+      <!-- VOLUNTEERS -->
+      <div class="coop-block active" id="coop-volunteers">
+        <div class="coop-detail reveal in-view">
+          <div>
+            <div class="eyebrow">Для волонтерів</div>
+            <h3 style="font-family:var(--ff-display); font-size:24px; margin-bottom:14px;">Якщо ви хочете допомагати тваринам</h3>
+            <p style="opacity:.78;">Якщо ви хочете допомагати тваринам, дарувати їм турботу та змінювати їхні життя на краще, ми чекаємо саме на вас! Приєднатися до нашої команди може кожен охочий, і це абсолютно безкоштовно.</p>
+            <p style="opacity:.78;">На Zooto зібрана велика база перевірених притулків по всій країні, тому для ваших добрих рук та чуйного серця завжди знайдеться важлива справа — від допомоги з доглядом і вигулом до пошуку нових господарів та ведення соцмереж.</p>
+            <p style="opacity:.78;">Щоб розпочати свій шлях у волонтерстві та стати частиною нашої великої родини, просто напишіть у наш Telegram-бот і оберіть розділ «Співпраця». Ми підкажемо перші кроки та підберемо притулок, якому ваша підтримка потрібна просто зараз!</p>
+            <div class="coop-contact">
+              <a class="btn btn-primary btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Написати в бот</a>
+            </div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Догляд і вигул тварин у притулках</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Пошук нових господарів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ведення соцмереж притулку</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Повністю безкоштовна участь</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SHOPS -->
+      <div class="coop-block" id="coop-shops">
+        <div class="coop-detail">
+          <div>
+            <div class="eyebrow">Для зоомагазинів та брендів</div>
+            <h3 style="font-family:var(--ff-display); font-size:24px; margin-bottom:14px;">Вийдіть на зацікавлену аудиторію</h3>
+            <p style="opacity:.78;">Працюєте у сфері товарів для тварин і хочете вийти на нову, максимально зацікавлену аудиторію? Zooto пропонує вигідні партнерські програми, інтеграції та рекламні можливості безпосередньо на нашому сайті!</p>
+            <p style="opacity:.78;">Ми відкриті до співпраці, розміщення вашої реклами, а також запуску спільних промокодів та персональних знижок для користувачів платформи. Головна та єдина умова — ваш продукт має бути якісним і повністю відповідати стандартам безпеки, благополуччя та затишного облаштування життя тварин.</p>
+            <p style="opacity:.78;">Давайте розвивати якісний зообізнес та тішити хвостиків разом!</p>
+            <div class="coop-contact">
+              <a class="btn btn-primary btn-sm" href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+              <a class="btn btn-ghost btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Telegram-бот</a>
+            </div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Рекламні інтеграції на сайті</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Спільні промокоди та знижки</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Прямий доступ до аудиторії власників тварин</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VETS -->
+      <div class="coop-block" id="coop-vets">
+        <div class="coop-detail">
+          <div>
+            <div class="eyebrow">Для ветеринарних клінік та експертів</div>
+            <h3 style="font-family:var(--ff-display); font-size:24px; margin-bottom:14px;">Ви щодня рятуєте життя — приєднуйтесь</h3>
+            <p style="opacity:.78;">Ви щодня рятуєте життя та дбаєте про здоров'я чотириногих! Ми прагнемо створити найкращу екосистему для господарів та їхніх вихованців, тому запрошуємо ветеринарних лікарів та клініки до постійної співпраці.</p>
+            <div class="coop-contact">
+              <a class="btn btn-primary btn-sm" href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+              <a class="btn btn-ghost btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Telegram-бот</a>
+            </div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Залучення нових клієнтів через каталог перевірених спеціалістів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Спеціальні умови для притулків-партнерів</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Майданчик для експертних публікацій</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Партнерські знижки для користувачів Zooto</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- BLOGGERS -->
+      <div class="coop-block" id="coop-bloggers">
+        <div class="coop-detail">
+          <div>
+            <div class="eyebrow">Для блогерів та медіа</div>
+            <h3 style="font-family:var(--ff-display); font-size:24px; margin-bottom:14px;">Використовуйте свій голос задля добрих справ</h3>
+            <p style="opacity:.78;">Якщо ви любите тварин, створюєте якісний контент та хочете використовувати свій голос задля добрих справ — ми будемо щасливі співпрацювати! Zooto завжди відкритий до щирих та яскравих інформаційних партнерств.</p>
+            <p style="opacity:.78;">Ми ділимося зворушливими історіями порятунку, аналітикою та експертними матеріалами для ваших публікацій або сюжетів, а також пропонуємо амбасадорство — можливість стати офіційним обличчям чи голосом нашої платформи.</p>
+            <div class="coop-contact">
+              <a class="btn btn-primary btn-sm" href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+              <a class="btn btn-ghost btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Telegram-бот</a>
+            </div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Спільні спецпроєкти та соціальні кампанії</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Інформаційна підтримка зборів та акцій</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Ексклюзивний контент та історії порятунку</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Амбасадорство платформи</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- IDEAS -->
+      <div class="coop-block" id="coop-ideas">
+        <div class="coop-detail">
+          <div>
+            <div class="eyebrow">Для всіх, у кого є ідеї!</div>
+            <h3 style="font-family:var(--ff-display); font-size:24px; margin-bottom:14px;">Найкрутіші зміни починаються з однієї сміливої думки</h3>
+            <p style="opacity:.78;">Ким би ви не були — студентом, розробником, дизайнером, маркетологом чи просто людиною з великим серцем та яскравим задумом — ми завжди поруч і готові вислухати! У Zooto немає рамок чи формальностей.</p>
+            <p style="opacity:.78;">Якщо у вас є ідея, як покращити життя тварин, зробити платформу зручнішою, запустити круту благодійну акцію чи створити щось принципово нове — ми з радістю обговоримо її з вами, підкажемо та допоможемо втілити в життя.</p>
+            <p style="opacity:.78;">Напишіть нам, поділіться своїм баченням, і давайте робити добрі справи та створювати круті проєкти разом!</p>
+            <div class="coop-contact">
+              <a class="btn btn-primary btn-sm" href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+              <a class="btn btn-ghost btn-sm" href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Telegram-бот</a>
+            </div>
+          </div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Без формальностей і бюрократії</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Обговорення та допомога у втіленні</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Відкриті до будь-яких напрямів</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 44c-7 0-13-4.5-13-11 0-5 3-8 6-11 3-3 4-6 4-9 0-2 1.5-3.5 3-3.5s3 1.5 3 3.5c0 3 1 6 4 9 3 3 6 6 6 11 0 6.5-6 11-13 11z" fill="url(#g2)"/><circle cx="10" cy="14" r="5" fill="url(#g2)"/><circle cx="38" cy="14" r="5" fill="url(#g2)"/><circle cx="4" cy="26" r="4" fill="url(#g2)"/><circle cx="44" cy="26" r="4" fill="url(#g2)"/><defs><linearGradient id="g2" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs></svg>
+          Zooto
+        </div>
+        <p style="font-size:14px; opacity:.6; max-width:32ch;">Простір турботи про тварин в Україні.</p>
+      </div>
+      <div>
+        <h4>Платформа</h4>
+        <a href="index.html">Головна</a>
+        <a href="marketplace.html">Заводчикам і покупцям</a>
+        <a href="shelters.html">Притулкам</a>
+        <a href="cooperation.html">Співпраця</a>
+      </div>
+      <div>
+        <h4>Спільнота</h4>
+        <a href="https://t.me/zooto_ua" target="_blank" rel="noopener">Telegram-канал</a>
+        <a href="https://t.me/zooto_chat" target="_blank" rel="noopener">Telegram-чат</a>
+        <a href="https://t.me/zooto_helper_bot" target="_blank" rel="noopener">Бот-помічник</a>
+      </div>
+      <div>
+        <h4>Партнерам</h4>
+        <a href="mailto:zooto.partner@gmail.com">zooto.partner@gmail.com</a>
+        <a href="cooperation.html">Умови співпраці</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Zooto. Простір, де кожна лапка знаходить свою людину.</span>
+      <span>Зроблено з 🧡 в Україні</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
