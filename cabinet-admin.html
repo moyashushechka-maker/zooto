@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Адмін-панель — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/cabinet.css">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body class="cab-body">
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<div class="demo-banner">
+  🧪 Це прототип інтерфейсу — заявки тут демонстраційні, дані зберігаються лише у вашому браузері. <span>Реальна модерація підключиться разом із базою даних.</span>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="cab-topbar">
+  <div class="container">
+    <div class="cab-id">
+      <div class="cab-avatar" style="background:var(--espresso-2);"><span>Z</span></div>
+      <div class="cab-id-text">
+        <div class="name">Адмін-панель Zooto</div>
+        <div class="role">Панель модератора</div>
+      </div>
+    </div>
+    <div class="cab-topbar-actions">
+      <a class="btn btn-ghost btn-sm" href="index.html">← На сайт Zooto</a>
+      <button class="btn btn-ghost btn-sm" id="btn-reset-demo" title="Скинути демо-дані">Скинути демо</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="cab-hero">
+  <div class="orb-field"><div class="orb orb--1" style="opacity:.4;"></div><div class="orb orb--2" style="opacity:.35;"></div></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="eyebrow">Модерація</div>
+    <h1>Заявки та верифікація</h1>
+    <p>Переглядайте анкети притулків і заводчиків, підтверджуйте документи та керуйте бейджами довіри — все в одному місці.</p>
+  </div>
+</section>
+
+<!-- ============ TABS ============ -->
+<div class="cab-tabs-wrap">
+  <div class="container">
+    <div class="cab-tabs">
+      <button class="cab-tab active" data-tab="overview">Огляд</button>
+      <button class="cab-tab" data-tab="applications">Заявки на реєстрацію</button>
+      <button class="cab-tab" data-tab="verify">Верифікація заводчиків</button>
+      <button class="cab-tab" data-tab="complaints">Скарги</button>
+      <div class="cab-tabs-indicator"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="cab-panel active" id="cab-panel-overview">
+  <div class="container">
+    <div class="stat-grid reveal-stagger">
+      <div class="stat-card reveal in-view" style="--i:0"><div class="stat-num" id="stat-pending-apps">0</div><div class="stat-label">Нових заявок</div></div>
+      <div class="stat-card reveal in-view" style="--i:1"><div class="stat-num" id="stat-pending-verify">0</div><div class="stat-label">На верифікації</div></div>
+      <div class="stat-card reveal in-view" style="--i:2"><div class="stat-num" id="stat-approved">0</div><div class="stat-label">Схвалено всього</div></div>
+      <div class="stat-card reveal in-view" style="--i:3"><div class="stat-num" id="stat-rejected">0</div><div class="stat-label">Відхилено всього</div></div>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6M5 4h14v16H5z"/></svg></div>
+        <h3 style="font-size:17px;">Анкети притулків і заводчиків</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Переглядайте базові дані та прикріплені документи перед відкриттям доступу до кабінету.</p>
+      </div>
+      <div class="card reveal" style="--i:1">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3 style="font-size:17px;">Бейдж «Перевірений заводчик»</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Повний пакет документів — сертифікат, родоводи, ветпаспорт — на розгляд перед видачею бейджа.</p>
+      </div>
+      <div class="card reveal" style="--i:2">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+        <h3 style="font-size:17px;">Один клік — рішення</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Схвалюйте або відхиляйте заявки прямо з картки, з можливістю вказати причину відмови.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APPLICATIONS ============ -->
+<div class="cab-panel" id="cab-panel-applications">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Заявки на реєстрацію</h2>
+        <p>Анкети притулків, волонтерів і заводчиків, що подали заявку через сайт.</p>
+      </div>
+    </div>
+    <div class="filter-row">
+      <button class="filter-chip active" data-filter="all">Всі <span class="count" data-count="all">0</span></button>
+      <button class="filter-chip" data-filter="pending">На розгляді <span class="count" data-count="pending">0</span></button>
+      <button class="filter-chip" data-filter="shelter">Притулки <span class="count" data-count="shelter">0</span></button>
+      <button class="filter-chip" data-filter="breeder">Заводчики <span class="count" data-count="breeder">0</span></button>
+      <button class="filter-chip" data-filter="approved">Схвалено <span class="count" data-count="approved">0</span></button>
+      <button class="filter-chip" data-filter="rejected">Відхилено <span class="count" data-count="rejected">0</span></button>
+    </div>
+    <div class="app-list" id="app-list"></div>
+  </div>
+</div>
+
+<!-- ============ VERIFY ============ -->
+<div class="cab-panel" id="cab-panel-verify">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Верифікація заводчиків</h2>
+        <p>Заводчики, які завантажили повний пакет документів для бейджа «Перевірений заводчик».</p>
+      </div>
+    </div>
+    <div class="app-list" id="verify-list"></div>
+  </div>
+</div>
+
+<!-- ============ COMPLAINTS (soon) ============ -->
+<div class="cab-panel" id="cab-panel-complaints">
+  <div class="container">
+    <div class="admin-soon reveal in-view">
+      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01M10.3 3.9 2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></div>
+      <h4 style="font-family:var(--ff-display); font-size:19px; margin-bottom:8px;">Розділ скарг та арбітражу</h4>
+      <p style="font-size:14px; opacity:.6; max-width:44ch; margin:0 auto;">Тут з'являться спірні угоди та звернення користувачів, коли підключимо систему безпечних угод.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: DETAIL ============ -->
+<div class="modal-backdrop" id="modal-detail">
+  <div class="modal modal-lg">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <h3 id="detail-title">Назва заявки</h3>
+    <p class="sub" id="detail-sub">Деталі</p>
+
+    <div class="app-detail-grid" id="detail-fields"></div>
+
+    <div class="promo-total-label" style="margin-bottom:10px;">Документи</div>
+    <div class="doc-gallery" id="doc-gallery"></div>
+
+    <div id="detail-status-box"></div>
+
+    <div class="reject-reason" id="reject-reason-box">
+      <div class="field">
+        <label>Причина відмови (покажемо заявнику)</label>
+        <textarea id="reject-reason-input" rows="3" placeholder="Напр. Не вистачає сертифіката розплідника"></textarea>
+      </div>
+      <button class="btn btn-reject" id="btn-reject-confirm" style="width:100%;">Підтвердити відмову</button>
+    </div>
+
+    <div class="modal-action-row" id="modal-action-row">
+      <button class="btn btn-reject" id="btn-reject-toggle">Відхилити</button>
+      <button class="btn btn-primary" id="btn-approve">Схвалити</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/admin.js"></script>
+</body>
+</html>
