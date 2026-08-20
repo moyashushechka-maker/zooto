@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кабінет притулку — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/cabinet.css">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body class="cab-body">
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<div class="demo-banner">
+  🧪 Це прототип інтерфейсу — дані зберігаються лише у вашому браузері (демо). Після підключення бекенду тут будуть реальні акаунти. <span>Нічого нікуди не публікується.</span>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="cab-topbar">
+  <div class="container">
+    <div class="cab-id">
+      <div class="cab-avatar"><span id="cab-avatar-initials">ПХ</span></div>
+      <div class="cab-id-text">
+        <div class="name" id="cab-shelter-name">Притулок Хвостики</div>
+        <div class="role">Кабінет притулку · <span id="cab-shelter-city">Львів</span></div>
+      </div>
+    </div>
+    <div class="cab-topbar-actions">
+      <a class="btn btn-ghost btn-sm" href="index.html">← На сайт Zooto</a>
+      <button class="btn btn-ghost btn-sm" id="btn-reset-demo" title="Скинути демо-дані">Скинути демо</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="cab-hero">
+  <div class="orb-field"><div class="orb orb--1" style="opacity:.4;"></div><div class="orb orb--2" style="opacity:.35;"></div></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="eyebrow">Особистий кабінет</div>
+    <h1>Вітаємо, <span id="cab-shelter-name-2">Притулок Хвостики</span>! 👋</h1>
+    <p>Розміщуйте вихованців без обмежень, публікуйте збори та керуйте оголошенням, яке буде закріплене саме на вашій сторінці в каталозі Zooto.</p>
+  </div>
+</section>
+
+<!-- ============ TABS ============ -->
+<div class="cab-tabs-wrap">
+  <div class="container">
+    <div class="cab-tabs">
+      <button class="cab-tab active" data-tab="overview">Огляд</button>
+      <button class="cab-tab" data-tab="animals">Тварини</button>
+      <button class="cab-tab" data-tab="funds">Збори</button>
+      <button class="cab-tab" data-tab="announcement">Оголошення на сторінці</button>
+      <div class="cab-tabs-indicator"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="cab-panel active" id="cab-panel-overview">
+  <div class="container">
+    <div class="stat-grid reveal-stagger">
+      <div class="stat-card reveal in-view" style="--i:0"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Всього вихованців</div></div>
+      <div class="stat-card reveal in-view" style="--i:1"><div class="stat-num" id="stat-available">0</div><div class="stat-label">Доступні зараз</div></div>
+      <div class="stat-card reveal in-view" style="--i:2"><div class="stat-num" id="stat-adopted">0</div><div class="stat-label">Знайшли дім</div></div>
+      <div class="stat-card reveal in-view" style="--i:3"><div class="stat-num" id="stat-funds">0</div><div class="stat-label">Активних зборів</div></div>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></div>
+        <h3 style="font-size:17px;">Розміщення без лімітів</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Додавайте стільки карток вихованців, скільки потрібно — жодних обмежень для притулків.</p>
+      </div>
+      <div class="card reveal" style="--i:1">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+        <h3 style="font-size:17px;">Прозорі збори</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Публікуйте банки Monobank чи PayPal напряму — без посередників і комісій платформи.</p>
+      </div>
+      <div class="card reveal" style="--i:2">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5M9 3h6l-1 7 4 3H6l4-3Z"/></svg></div>
+        <h3 style="font-size:17px;">Закріплене оголошення</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Одне важливе повідомлення завжди зверху саме на вашій сторінці притулку.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ANIMALS ============ -->
+<div class="cab-panel" id="cab-panel-animals">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Ваші вихованці</h2>
+        <p>Фото, ім'я, вік і короткий характер — все інше опційно. Без обмежень по кількості.</p>
+      </div>
+      <button class="btn btn-primary" id="btn-add-animal">
+        + Додати вихованця
+      </button>
+    </div>
+    <div class="animal-grid" id="animal-grid"></div>
+  </div>
+</div>
+
+<!-- ============ FUNDS ============ -->
+<div class="cab-panel" id="cab-panel-funds">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Збори</h2>
+        <p>Вставте посилання на банку — картка зі збором зʼявиться у вас на сторінці.</p>
+      </div>
+      <button class="btn btn-primary" id="btn-add-fund">+ Створити збір</button>
+    </div>
+    <div class="fund-grid" id="fund-grid"></div>
+  </div>
+</div>
+
+<!-- ============ ANNOUNCEMENT ============ -->
+<div class="cab-panel" id="cab-panel-announcement">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Оголошення на сторінці притулку</h2>
+        <p>Це повідомлення буде закріплене зверху саме на вашій сторінці — на кшталт закріпленого поста.</p>
+      </div>
+    </div>
+
+    <div class="announce-toggle-row">
+      <div>
+        <div style="font-weight:800; font-size:14.5px; margin-bottom:2px;">Показувати оголошення</div>
+        <div style="font-size:13px; opacity:.6;">Якщо вимкнено — на сторінці нічого не закріплено.</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="announce-toggle" checked>
+        <span class="switch-track"></span>
+      </label>
+    </div>
+
+    <div class="announce-grid">
+      <div>
+        <div class="field">
+          <label>Текст оголошення</label>
+          <textarea id="announce-text" rows="6" placeholder="Наприклад: у нас термінова SOS-ситуація, потрібна допомога..."></textarea>
+        </div>
+        <div class="field">
+          <label>Зображення (необов'язково)</label>
+          <label class="dropzone">
+            <input type="file" id="announce-photo-input" accept="image/*">
+            <div class="dropzone-thumb" id="announce-dropzone-thumb"></div>
+            <div class="dropzone-text">Натисніть, щоб завантажити фото<span>PNG, JPG до кількох МБ</span></div>
+          </label>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-clear-announce-photo">Прибрати зображення</button>
+      </div>
+      <div>
+        <div class="announce-preview-label">Так це виглядатиме на вашій сторінці</div>
+        <div class="pinned-card" id="pinned-preview"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ANIMAL ============ -->
+<div class="modal-backdrop" id="modal-animal">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <h3 id="animal-modal-title">Новий вихованець</h3>
+    <p class="sub">Заповніть, що знаєте — фото, вік і характер можна додати пізніше.</p>
+    <form id="animal-form">
+      <div class="field">
+        <label>Фото</label>
+        <label class="dropzone">
+          <input type="file" id="animal-photo-input" accept="image/*">
+          <div class="dropzone-thumb" id="animal-photo-preview"></div>
+          <div class="dropzone-text">Натисніть, щоб завантажити фото<span>Необов'язково</span></div>
+        </label>
+      </div>
+      <div class="field">
+        <label>Ім'я *</label>
+        <input type="text" name="name" required placeholder="Напр. Мурчик">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Вид</label>
+          <select name="species">
+            <option value="cat">Кіт</option>
+            <option value="dog">Пес</option>
+            <option value="other">Інше</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Вік</label>
+          <input type="text" name="age" placeholder="Напр. 2 роки">
+        </div>
+      </div>
+      <div class="field">
+        <label>Характер (коротко)</label>
+        <textarea name="character" rows="3" maxlength="220" placeholder="Ласкавий, любить дітей, обережний з незнайомцями..."></textarea>
+      </div>
+      <div class="field">
+        <label>Статус</label>
+        <select name="status">
+          <option value="available">Доступний</option>
+          <option value="reserved">Резерв</option>
+          <option value="adopted">Прилаштований</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Зберегти картку</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: FUND ============ -->
+<div class="modal-backdrop" id="modal-fund">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <h3 id="fund-modal-title">Новий збір</h3>
+    <p class="sub">Вставте посилання на банку — Monobank, PayPal чи іншу.</p>
+    <form id="fund-form">
+      <div class="field">
+        <label>Назва збору *</label>
+        <input type="text" name="title" required placeholder="Напр. Операція для Рекса">
+      </div>
+      <div class="field">
+        <label>Короткий опис</label>
+        <textarea name="desc" rows="3" placeholder="На що саме потрібні кошти"></textarea>
+      </div>
+      <div class="field">
+        <label>Посилання на банку *</label>
+        <input type="url" name="link" required placeholder="https://send.monobank.ua/jar/...">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Ціль, грн (необов'язково)</label>
+          <input type="number" name="goal" min="0" placeholder="15000">
+        </div>
+        <div class="field">
+          <label>Зібрано, грн (необов'язково)</label>
+          <input type="number" name="raised" min="0" placeholder="0">
+        </div>
+      </div>
+      <div class="field">
+        <label>Статус</label>
+        <select name="status">
+          <option value="active">Активний</option>
+          <option value="closed">Завершено</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" type="submit">Опублікувати збір</button>
+    </form>
+  </div>
+</div>
+
+<script src="assets/cabinet.js"></script>
+</body>
+</html>
