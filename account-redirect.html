@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вхід… — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/auth.css">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+</head>
+<body>
+<div class="grain"></div>
+
+<div class="auth-shell">
+  <div class="orb-field"><div class="orb orb--1" style="opacity:.35;"></div><div class="orb orb--2" style="opacity:.3;"></div></div>
+
+  <div class="auth-card reveal in-view">
+    <div id="loading-state" style="text-align:center;">
+      <div class="icon-badge" style="margin:0 auto 18px; width:56px; height:56px; border-radius:18px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation:btn-spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.2-8.56"/></svg>
+      </div>
+      <h1 style="font-size:19px;">Заходимо…</h1>
+      <p class="sub" style="margin-bottom:0;">Секунду.</p>
+    </div>
+
+    <div id="role-picker-state" style="display:none;">
+      <h1 style="text-align:center;">Хто ви? 👋</h1>
+      <p class="sub" style="text-align:center;">Ви увійшли через Google — залишилось обрати роль, щоб ми відкрили потрібний кабінет.</p>
+      <div class="auth-error" id="auth-error"></div>
+      <div class="role-switcher" data-active="0" id="role-switcher" style="margin-bottom:20px;">
+        <div class="role-switcher-thumb"></div>
+        <button type="button" class="active" data-role="buyer">Покупець</button>
+        <button type="button" data-role="breeder">Заводчик</button>
+        <button type="button" data-role="shelter">Притулок</button>
+      </div>
+      <button class="btn btn-primary" id="confirm-role-btn" style="width:100%;">Продовжити</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { supabase, showError, hideError, setLoading } from './assets/auth-client.js';
+
+  const CABINET_BY_ROLE = {
+    breeder: 'cabinet-breeder.html',
+    shelter: 'cabinet-shelter.html',
+    buyer: 'index.html'
+  };
+
+  let userId = null;
+  let selectedRole = 'buyer';
+
+  (async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user){ window.location.href = 'login.html'; return; }
+    userId = user.id;
+
+    const { data: profile, error } = await supabase
+      .from('profiles')
+      .select('role, role_confirmed')
+      .eq('id', user.id)
+      .single();
+
+    if (!error && profile && profile.role_confirmed){
+      window.location.href = CABINET_BY_ROLE[profile.role] || 'index.html';
+      return;
+    }
+
+    // New Google sign-in with no role chosen yet — ask.
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('role-picker-state').style.display = 'block';
+  })();
+
+  const switcher = document.getElementById('role-switcher');
+  if (switcher){
+    switcher.querySelectorAll('button').forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        switcher.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        switcher.dataset.active = idx;
+        switcher.querySelector('.role-switcher-thumb').style.transform = `translateX(${idx*100}%)`;
+        selectedRole = btn.dataset.role;
+      });
+    });
+  }
+
+  document.getElementById('confirm-role-btn').addEventListener('click', async () => {
+    hideError();
+    const btn = document.getElementById('confirm-role-btn');
+    setLoading(btn, true);
+    const { error } = await supabase
+      .from('profiles')
+      .update({ role: selectedRole, role_confirmed: true })
+      .eq('id', userId);
+    setLoading(btn, false);
+    if (error){ showError('Не вдалося зберегти роль. Спробуйте ще раз.'); return; }
+    window.location.href = CABINET_BY_ROLE[selectedRole];
+  });
+</script>
+</body>
+</html>
