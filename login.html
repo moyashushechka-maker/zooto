@@ -18,7 +18,7 @@
       Zooto
     </a>
     <div class="nav-cta">
-      <a class="btn btn-ghost btn-sm" href="register.html">Створити акаунт</a>
+      <button class="btn btn-ghost btn-sm" data-open-register data-register-role="buyer">Створити акаунт</button>
     </div>
   </div>
 </header>
@@ -54,10 +54,12 @@
       Продовжити з Google
     </button>
 
-    <p class="auth-foot">Ще немає акаунту? <a href="register.html">Зареєструватися</a></p>
+    <p class="auth-foot">Ще немає акаунту? <a href="#" data-open-register data-register-role="buyer">Зареєструватися</a></p>
   </div>
 </div>
 
+<script src="assets/main.js"></script>
+<script type="module" src="assets/register-modal.js"></script>
 <script type="module">
   import { supabase, showError, hideError, setLoading, friendlyAuthError, GOOGLE_ICON, signInWithGoogle } from './assets/auth-client.js';
 

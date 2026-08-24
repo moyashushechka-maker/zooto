@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Заводчикам і покупцям — Zooto</title>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/auth.css">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon-512.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -26,6 +27,7 @@
       <a href="cooperation.html">Співпраця</a>
     </nav>
     <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="login.html">Увійти</a>
       <a class="btn btn-primary btn-sm" href="#buyer">Знайти хвостика</a>
       <button class="nav-burger" aria-label="Меню">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -72,7 +74,7 @@
         <h2 style="font-size:clamp(26px,3.4vw,38px);">Якщо ви займаєтеся розведенням тварин — Zooto створений для вас 🌿</h2>
         <p style="font-size:16.5px; opacity:.78;">Zooto — це ідеальне місце для відповідальних заводчиків та розплідників. Наша головна мета — створити простір, де ви зможете спокійно знаходити добросовісних, турботливих господарів для своїх вихованців без ризику натрапити на шахраїв.</p>
         <p style="font-size:16.5px; opacity:.78;">Ми беремо на себе турботу про вашу захищеність: забезпечуємо безпечні угоди, прозорі умови та перевірку покупців. З нами ви можете бути впевнені, що ваша праця цінується, а кожен малюк потрапить у надійні руки! 🐾</p>
-        <button class="btn btn-primary" data-modal-open="modal-breeder">
+        <button class="btn btn-primary" data-open-register data-register-role="breeder">
           Подати анкету заводчика
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
@@ -144,7 +146,7 @@
         <div class="eyebrow">Для покупців</div>
         <h2 style="font-size:clamp(26px,3.4vw,38px);">Знайдіть свого хвостика — безпечно і з любов'ю 🧡</h2>
         <p style="font-size:16.5px; opacity:.78;">Обирайте вихованця — шукайте породисте кошеня чи цуценя від перевірених розплідників або забирайте хвостика з притулку безкоштовно.</p>
-        <button class="btn btn-primary" data-modal-open="modal-buyer">
+        <button class="btn btn-primary" data-open-register data-register-role="buyer">
           Знайти свого хвостика
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
@@ -273,50 +275,7 @@
   </div>
 </footer>
 
-<!-- ============ MODALS ============ -->
-<div class="modal-backdrop" id="modal-breeder">
-  <div class="modal">
-    <button class="modal-close" aria-label="Закрити">✕</button>
-    <div class="modal-form">
-      <h3>Анкета заводчика</h3>
-      <p class="sub">Заповніть базові дані — після модерації ми відкриємо доступ до кабінету.</p>
-      <form>
-        <div class="field"><label>Ім'я / назва розплідника</label><input type="text" required placeholder="Напр. Cattery Sonce"></div>
-        <div class="field"><label>Місто</label><input type="text" required placeholder="Київ"></div>
-        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
-        <div class="field"><label>Про кого йдеться</label><select><option>Коти</option><option>Собаки</option><option>Інше</option></select></div>
-        <button class="btn btn-primary" type="submit">Надіслати анкету</button>
-      </form>
-    </div>
-    <div class="modal-success" style="display:none;">
-      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Дякуємо!</h3>
-      <p class="sub">Анкету надіслано. Ми зв'яжемось із вами після модерації.</p>
-    </div>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-buyer">
-  <div class="modal">
-    <button class="modal-close" aria-label="Закрити">✕</button>
-    <div class="modal-form">
-      <h3>Знайти свого хвостика</h3>
-      <p class="sub">Розкажіть, кого шукаєте — підберемо варіанти з каталогу.</p>
-      <form>
-        <div class="field"><label>Кого шукаєте</label><select><option>Кошеня</option><option>Цуценя</option><option>Дорослу тварину з притулку</option></select></div>
-        <div class="field"><label>Місто</label><input type="text" required placeholder="Ваше місто"></div>
-        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
-        <button class="btn btn-primary" type="submit">Підібрати варіанти</button>
-      </form>
-    </div>
-    <div class="modal-success" style="display:none;">
-      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Дякуємо!</h3>
-      <p class="sub">Ми підберемо для вас варіанти й напишемо в Telegram.</p>
-    </div>
-  </div>
-</div>
-
 <script src="assets/main.js"></script>
+<script type="module" src="assets/register-modal.js"></script>
 </body>
 </html>

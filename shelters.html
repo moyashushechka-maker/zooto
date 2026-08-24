@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Притулкам та волонтерам — Zooto</title>
 <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/auth.css">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon-512.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -26,7 +27,8 @@
       <a href="cooperation.html">Співпраця</a>
     </nav>
     <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="#form" data-modal-open="modal-shelter">Подати анкету</a>
+      <a class="btn btn-ghost btn-sm" href="login.html">Увійти</a>
+      <button class="btn btn-primary btn-sm" data-open-register data-register-role="shelter">Подати анкету</button>
       <button class="nav-burger" aria-label="Меню">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
@@ -54,7 +56,7 @@
       <h1 style="font-size:clamp(30px,4.2vw,50px);">Вашим підопічним потрібен дім? Ми допоможемо знайти його швидше!</h1>
       <p class="lead">Zooto надає безкоштовну платформу та аудиторію, щоб ваші хвостики стали помітними. Ми безкоштовно розміщуємо оголошення, допомагаємо з SOS-запитами та просуваємо прозорі збори. Усі послуги Zooto для притулків є абсолютно безкоштовними.</p>
       <div class="hero-actions">
-        <button class="btn btn-primary" data-modal-open="modal-shelter">
+        <button class="btn btn-primary" data-open-register data-register-role="shelter">
           Подати анкету притулку
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
@@ -139,7 +141,7 @@
   <div class="container center reveal" style="position:relative; z-index:1; max-width:600px;">
     <h2>Давайте знаходити родини для спасенних тварин разом!</h2>
     <p style="color:rgba(255,216,194,.75); margin-bottom:30px;">Подайте анкету — і вже за 24 години ваші підопічні зможуть з'явитись у каталозі Zooto.</p>
-    <button class="btn btn-primary" data-modal-open="modal-shelter">Подати анкету притулку</button>
+    <button class="btn btn-primary" data-open-register data-register-role="shelter">Подати анкету притулку</button>
   </div>
 </section>
 
@@ -180,29 +182,8 @@
   </div>
 </footer>
 
-<!-- ============ MODAL ============ -->
-<div class="modal-backdrop" id="modal-shelter">
-  <div class="modal">
-    <button class="modal-close" aria-label="Закрити">✕</button>
-    <div class="modal-form">
-      <h3>Анкета притулку / волонтера</h3>
-      <p class="sub">Розкажіть про вашу організацію — перевіримо дані протягом 24 годин.</p>
-      <form>
-        <div class="field"><label>Назва притулку / ім'я волонтера</label><input type="text" required placeholder="Напр. Притулок Хвостики"></div>
-        <div class="field"><label>Місто</label><input type="text" required placeholder="Місто"></div>
-        <div class="field"><label>Telegram або телефон</label><input type="text" required placeholder="@nickname"></div>
-        <div class="field"><label>Статус</label><select><option>Офіційний притулок</option><option>Приватний волонтер</option></select></div>
-        <button class="btn btn-primary" type="submit">Надіслати анкету</button>
-      </form>
-    </div>
-    <div class="modal-success" style="display:none;">
-      <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h3>Дякуємо!</h3>
-      <p class="sub">Анкету надіслано. Ми перевіримо дані протягом 24 годин.</p>
-    </div>
-  </div>
-</div>
 
 <script src="assets/main.js"></script>
+<script type="module" src="assets/register-modal.js"></script>
 </body>
 </html>
