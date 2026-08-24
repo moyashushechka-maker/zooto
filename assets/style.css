@@ -100,18 +100,16 @@ button{ font-family:inherit; }
 .orb-field{ position:absolute; inset:0; overflow:hidden; z-index:0; pointer-events:none; }
 .orb{
   position:absolute; border-radius:50%; filter:blur(60px);
-  animation:float-orb 30s ease-in-out infinite;
+  animation:float-orb 16s ease-in-out infinite;
   opacity:.75;
-  will-change:transform;
-  backface-visibility:hidden;
 }
-.orb--1{ width:420px; height:420px; background:radial-gradient(circle at 30% 30%, var(--gold), transparent 70%); top:-120px; left:-80px; animation-duration:32s; }
-.orb--2{ width:380px; height:380px; background:radial-gradient(circle at 60% 40%, var(--terracotta), transparent 70%); top:40px; right:-100px; animation-duration:36s; animation-delay:-4s; }
-.orb--3{ width:320px; height:320px; background:radial-gradient(circle at 50% 50%, var(--coral), transparent 70%); bottom:-140px; left:38%; animation-duration:34s; animation-delay:-9s; }
+.orb--1{ width:420px; height:420px; background:radial-gradient(circle at 30% 30%, var(--gold), transparent 70%); top:-120px; left:-80px; animation-duration:18s; }
+.orb--2{ width:380px; height:380px; background:radial-gradient(circle at 60% 40%, var(--terracotta), transparent 70%); top:40px; right:-100px; animation-duration:22s; animation-delay:-4s; }
+.orb--3{ width:320px; height:320px; background:radial-gradient(circle at 50% 50%, var(--coral), transparent 70%); bottom:-140px; left:38%; animation-duration:20s; animation-delay:-9s; }
 @keyframes float-orb{
-  0%,100%{ transform:translate3d(0,0,0) scale(1); }
-  33%{ transform:translate3d(12px,-16px,0) scale(1.03); }
-  66%{ transform:translate3d(-10px,10px,0) scale(.97); }
+  0%,100%{ transform:translate(0,0) scale(1); }
+  33%{ transform:translate(30px,-40px) scale(1.08); }
+  66%{ transform:translate(-25px,25px) scale(.94); }
 }
 
 /* ============================================================
@@ -130,7 +128,6 @@ button{ font-family:inherit; }
 .nav .container{ display:flex; align-items:center; justify-content:space-between; gap:20px; width:100%; }
 .logo{ display:flex; align-items:center; gap:10px; font-family:var(--ff-display); font-weight:800; font-size:22px; color:var(--espresso); }
 .logo svg{ width:34px; height:34px; flex-shrink:0; }
-.logo img{ width:36px; height:36px; object-fit:contain; flex-shrink:0; }
 .nav-links{ display:flex; align-items:center; gap:6px; }
 .nav-links a{
   padding:10px 16px; border-radius:var(--radius-pill); font-weight:700; font-size:14.5px;
@@ -388,14 +385,6 @@ footer{ background:var(--espresso-2); color:rgba(255,216,194,.7); padding:64px 0
 .footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:48px; position:relative; z-index:1; }
 .footer-logo{ display:flex; align-items:center; gap:10px; font-family:var(--ff-display); font-weight:800; font-size:22px; color:var(--snow); margin-bottom:14px; }
 .footer-logo svg{ width:30px; height:30px; }
-.footer-logo img{
-  width:32px; height:32px; object-fit:contain;
-  filter:
-    drop-shadow(1px 0 0 rgba(255,216,194,.4))
-    drop-shadow(-1px 0 0 rgba(255,216,194,.4))
-    drop-shadow(0 1px 0 rgba(255,216,194,.4))
-    drop-shadow(0 -1px 0 rgba(255,216,194,.4));
-}
 footer h4{ color:var(--snow); font-family:var(--ff-body); font-size:13px; letter-spacing:.08em; text-transform:uppercase; font-weight:800; margin-bottom:16px; opacity:.6; }
 footer a{ display:block; font-size:14.5px; padding:6px 0; opacity:.85; transition:opacity .2s, color .2s; }
 footer a:hover{ opacity:1; color:var(--gold); }
@@ -432,3 +421,22 @@ footer a:hover{ opacity:1; color:var(--gold); }
 .mobile-drawer.open{ transform:translateX(0); }
 .mobile-drawer a{ font-family:var(--ff-display); font-size:22px; font-weight:700; padding:16px 4px; border-bottom:1px solid var(--border-soft); }
 .mobile-drawer-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
+
+/* ============================================================
+   Upload dropzone (shared — used in cabinets and registration modal)
+   ============================================================ */
+.dropzone{
+  border:1.5px dashed rgba(43,29,25,.2); border-radius:var(--radius-md); padding:22px;
+  display:flex; align-items:center; gap:16px; cursor:pointer; transition:border-color .2s, background .2s;
+  background:var(--peach);
+}
+.dropzone:hover{ border-color:var(--terracotta); background:rgba(242,107,56,.05); }
+.dropzone input[type=file]{ display:none; }
+.dropzone-thumb{
+  width:56px; height:56px; border-radius:12px; background:var(--snow); flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; border:1px solid var(--border-soft);
+}
+.dropzone-thumb img{ width:100%; height:100%; object-fit:cover; }
+.dropzone-thumb svg{ width:22px; height:22px; opacity:.4; }
+.dropzone-text{ font-size:13.5px; font-weight:700; }
+.dropzone-text span{ display:block; font-size:12px; font-weight:500; opacity:.55; margin-top:2px; }
