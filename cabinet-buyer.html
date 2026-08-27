@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кабінет покупця — Zooto</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/cabinet.css">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/favicon-512.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+</head>
+<body class="cab-body">
+<div class="grain"></div>
+<div class="cursor-glow"></div>
+
+<div class="demo-banner">
+  🧪 Це прототип інтерфейсу — дані зберігаються лише у вашому браузері (демо). <span>Каталог поки не підключено до цього кабінету напряму.</span>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="cab-topbar">
+  <div class="container">
+    <div class="cab-id">
+      <div class="cab-avatar"><span id="cab-avatar-initials">ОП</span></div>
+      <div class="cab-id-text">
+        <div class="name" id="cab-buyer-name">Оксана Петренко</div>
+        <div class="role">Кабінет покупця · <span id="cab-buyer-city">Київ</span></div>
+      </div>
+    </div>
+    <div class="cab-topbar-actions">
+      <a class="btn btn-ghost btn-sm" href="index.html">← На сайт Zooto</a>
+      <button class="btn btn-ghost btn-sm" id="btn-reset-demo" title="Скинути демо-дані">Скинути демо</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="cab-hero">
+  <div class="orb-field"><div class="orb orb--1" style="opacity:.4;"></div><div class="orb orb--2" style="opacity:.35;"></div></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="eyebrow">Особистий кабінет</div>
+    <h1>Вітаємо, <span id="cab-buyer-name-2">Оксана</span>! 👋</h1>
+    <p>Зберігайте вподобаних вихованців в обране, тримайте напоготові список «Хочу забрати», і підписуйтесь на притулки та розплідники, щоб не пропустити новеньких.</p>
+  </div>
+</section>
+
+<!-- ============ TABS ============ -->
+<div class="cab-tabs-wrap">
+  <div class="container">
+    <div class="cab-tabs">
+      <button class="cab-tab active" data-tab="overview">Огляд</button>
+      <button class="cab-tab" data-tab="favorites">Обране</button>
+      <button class="cab-tab" data-tab="want">Хочу забрати</button>
+      <button class="cab-tab" data-tab="subs">Підписки</button>
+      <div class="cab-tabs-indicator"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ OVERVIEW ============ -->
+<div class="cab-panel active" id="cab-panel-overview">
+  <div class="container">
+    <div class="stat-grid reveal-stagger">
+      <div class="stat-card reveal in-view" style="--i:0"><div class="stat-num" id="stat-favorites">0</div><div class="stat-label">В обраному</div></div>
+      <div class="stat-card reveal in-view" style="--i:1"><div class="stat-num" id="stat-want">0</div><div class="stat-label">Хочу забрати</div></div>
+      <div class="stat-card reveal in-view" style="--i:2"><div class="stat-num" id="stat-subs">0</div><div class="stat-label">Підписок</div></div>
+    </div>
+
+    <div class="grid grid-3 reveal-stagger">
+      <div class="card reveal" style="--i:0">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+        <h3 style="font-size:17px;">Обране</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Зберігайте вихованців, які сподобались — без зобов'язань, просто щоб не загубити.</p>
+      </div>
+      <div class="card reveal" style="--i:1">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13.5c-2.6 0-6 3-6 5.8"/><circle cx="12" cy="8" r="4"/></svg></div>
+        <h3 style="font-size:17px;">Хочу забрати</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Коротший список для тих, кого ви вже готові забрати додому — з прямим зв'язком із заводчиком чи притулком.</p>
+      </div>
+      <div class="card reveal" style="--i:2">
+        <div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/></svg></div>
+        <h3 style="font-size:17px;">Підписки</h3>
+        <p style="font-size:14px; opacity:.7; margin:0;">Стежте за улюбленими притулками та розплідниками — не пропустите нових вихованців.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FAVORITES ============ -->
+<div class="cab-panel" id="cab-panel-favorites">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Обране</h2>
+        <p>Вихованці, яких ви позначили сердечком у каталозі.</p>
+      </div>
+    </div>
+    <div class="animal-grid" id="favorites-grid"></div>
+  </div>
+</div>
+
+<!-- ============ WANT LIST ============ -->
+<div class="cab-panel" id="cab-panel-want">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Хочу забрати</h2>
+        <p>Ті, кого ви вже готові забрати додому. Натисніть «Зв'язатися», щоб написати продавцю.</p>
+      </div>
+    </div>
+    <div class="animal-grid" id="want-grid"></div>
+  </div>
+</div>
+
+<!-- ============ SUBSCRIPTIONS ============ -->
+<div class="cab-panel" id="cab-panel-subs">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Підписки</h2>
+        <p>Притулки та розплідники, за якими ви стежите.</p>
+      </div>
+    </div>
+    <div class="sub-list" id="sub-list"></div>
+  </div>
+</div>
+
+<script src="assets/cabinet-buyer.js"></script>
+</body>
+</html>

@@ -96,15 +96,7 @@ body.cab-body{ background:var(--peach); }
   transition:opacity .25s, transform .25s;
 }
 .animal-card:hover .animal-actions{ opacity:1; transform:translateY(0); }
-.icon-btn{
-  width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
-  background:rgba(255,255,255,.92); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 10px rgba(43,29,25,.15); transition:background .2s, transform .2s;
-  color:var(--espresso);
-}
-.icon-btn:hover{ transform:scale(1.08); }
-.icon-btn.danger:hover{ background:var(--coral); color:var(--snow); }
-.icon-btn svg{ width:15px; height:15px; }
+/* ---------- icon-btn: moved to assets/style.css (shared) ---------- */
 .animal-body{ padding:18px 20px 20px; }
 .animal-body-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px; }
 .animal-body h4{ font-family:var(--ff-display); font-size:16.5px; margin:0; }
@@ -445,4 +437,53 @@ body.cab-body{ background:var(--peach); }
 @media (max-width:900px){
   .app-row{ grid-template-columns:1fr; text-align:left; }
   .app-detail-grid{ grid-template-columns:1fr; }
+}
+
+/* ============================================================
+   ZOOTO — Кабінет покупця (buyer extension)
+   ============================================================ */
+
+/* ---------- listing card (favorites / want-list) ---------- */
+.buy-card{
+  background:var(--snow); border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--border-soft);
+  box-shadow:var(--shadow-sm); transition:transform .3s, box-shadow .3s; position:relative;
+}
+.buy-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-md); }
+.buy-photo{
+  height:150px; background:var(--grad-sunset-soft); display:flex; align-items:center; justify-content:center; position:relative;
+}
+.buy-photo svg{ width:38px; height:38px; color:var(--terracotta); opacity:.4; }
+.buy-remove-btn{
+  position:absolute; top:12px; right:12px; opacity:0; transform:translateY(-6px);
+  transition:opacity .25s, transform .25s;
+}
+.buy-card:hover .buy-remove-btn{ opacity:1; transform:translateY(0); }
+.buy-body{ padding:18px 20px 20px; }
+.buy-body-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:6px; }
+.buy-body h4{ font-family:var(--ff-display); font-size:16px; margin:0; }
+.buy-seller{ display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:12.5px; opacity:.65; }
+.buy-seller-avatar{
+  width:22px; height:22px; border-radius:50%; background:var(--grad-sunset); color:var(--snow);
+  display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0;
+}
+.buy-actions-row{ display:flex; gap:8px; }
+.buy-actions-row .btn{ flex:1; }
+
+/* ---------- subscriptions ---------- */
+.sub-row{
+  display:flex; align-items:center; gap:14px; background:var(--snow); border:1px solid var(--border-soft);
+  border-radius:var(--radius-lg); padding:16px 20px; transition:box-shadow .3s;
+}
+.sub-row:hover{ box-shadow:var(--shadow-sm); }
+.sub-avatar{
+  width:46px; height:46px; border-radius:14px; background:var(--grad-sunset); color:var(--snow); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-family:var(--ff-display); font-weight:800; font-size:15px;
+}
+.sub-main{ flex:1; min-width:0; }
+.sub-main .name{ font-weight:800; font-size:14.5px; margin-bottom:2px; }
+.sub-main .meta{ font-size:12.5px; opacity:.55; }
+.sub-list{ display:flex; flex-direction:column; gap:12px; }
+
+@media (max-width:900px){
+  .buy-actions-row{ flex-direction:column; }
 }

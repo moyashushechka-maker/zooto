@@ -5,6 +5,7 @@
 // role: 'buyer' | 'breeder' | 'shelter' (defaults to 'buyer')
 // ============================================================
 import { supabase, showError, hideError, setLoading, friendlyAuthError, GOOGLE_ICON, signInWithGoogle } from './auth-client.js';
+import { DOG_BREEDS, CAT_BREEDS } from './breed-data.js';
 
 const DOC_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>';
 const CARD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>';
@@ -127,6 +128,101 @@ const MODAL_HTML = `
             </label>
           </div>
           <button class="btn btn-primary" type="submit" style="width:100%;">Надіслати заявку</button>
+        </form>
+      </div>
+
+      <!-- step 3-offer: register a parent animal now? -->
+      <div class="reg-step" data-step="3-offer">
+        <h3 style="margin-bottom:6px;">Зареєструвати тварину-батька? 🐾</h3>
+        <div class="reg-info-box">
+          Якщо зараз внесете свою племінну кішку чи собаку в базу, наші модератори перевірять її документи лише один раз. Коли народяться малюки, ви просто оберете маму зі списку — оголошення одразу вийде з позначкою «Перевірене походження», без повторної модерації кожного кошеняти.
+        </div>
+        <p class="sub" style="margin-top:-4px;">Немає документів під рукою прямо зараз? Не страшно — додасте тварину пізніше в кабінеті, це ніяк не вплине на ваш профіль.</p>
+        <div class="modal-action-row">
+          <button type="button" class="btn btn-ghost" id="btn-parent-later">Зроблю пізніше</button>
+          <button type="button" class="btn btn-primary" id="btn-parent-now">Додати зараз</button>
+        </div>
+      </div>
+
+      <!-- step 3-parent-form -->
+      <div class="reg-step" data-step="3-parent-form">
+        <button type="button" class="reg-back-link" data-back-to="3-offer">${BACK_ICON}Назад</button>
+        <h3 style="margin-bottom:6px;">Тварина-батько / мати</h3>
+        <p class="sub" style="margin-top:-4px;">Головний документ — офіційний родовід (він єдиний підтверджує породу).</p>
+        <form id="reg-form-parent">
+          <div class="role-switcher" data-active="1" id="parent-species-switcher" style="max-width:220px;">
+            <div class="role-switcher-thumb" style="width:calc(50% - 5px);"></div>
+            <button type="button" data-species="dog">Собака</button>
+            <button type="button" data-species="cat" class="active">Кішка</button>
+          </div>
+
+          <div class="field" style="margin-top:16px;">
+            <label>Стать</label>
+            <div class="yesno-row" id="parent-gender-row">
+              <button type="button" data-val="female" class="active">Самка (мама)</button>
+              <button type="button" data-val="male">Самець (тато)</button>
+            </div>
+          </div>
+
+          <div class="reg-name-row" style="grid-template-columns:1fr 1fr;">
+            <div class="field"><label>Кличка за документами</label><input type="text" name="official_name" required placeholder="Напр. Stella From Golden Family"></div>
+            <div class="field"><label>Домашня кличка</label><input type="text" name="home_name" placeholder="Напр. Стелла"></div>
+          </div>
+
+          <div class="field">
+            <label>Порода</label>
+            <input type="text" name="breed" list="parent-breed-list" required placeholder="Почніть вводити назву породи...">
+            <datalist id="parent-breed-list"></datalist>
+          </div>
+
+          <div class="reg-name-row" style="grid-template-columns:1fr 1fr;">
+            <div class="field"><label>Дата народження</label><input type="date" name="birth_date"></div>
+            <div class="field"><label>Окрас</label><input type="text" name="color" placeholder="Напр. Блакитний солід"></div>
+          </div>
+
+          <div class="field" id="parent-ems-field">
+            <label>EMS-код окрасу</label>
+            <input type="text" name="ems_code" placeholder="Напр. MCO a 22">
+          </div>
+
+          <div class="field">
+            <label>Головне фото тварини</label>
+            <label class="dropzone">
+              <input type="file" name="p_photo" accept="image/*">
+              <div class="dropzone-thumb" data-thumb="p_photo">${DZ_ICON}</div>
+              <div class="dropzone-text">Натисніть, щоб завантажити<span>Підтягнеться в оголошення малюків</span></div>
+            </label>
+          </div>
+
+          <div class="field">
+            <label>Родовід (Pedigree)</label>
+            <label class="dropzone">
+              <input type="file" name="p_pedigree" accept="image/*" required>
+              <div class="dropzone-thumb" data-thumb="p_pedigree">${DZ_ICON}</div>
+              <div class="dropzone-text">Натисніть, щоб завантажити</div>
+            </label>
+          </div>
+
+          <div class="field">
+            <label>Міжнародний ветпаспорт</label>
+            <label class="dropzone">
+              <input type="file" name="p_vetpassport" accept="image/*" required>
+              <div class="dropzone-thumb" data-thumb="p_vetpassport">${DZ_ICON}</div>
+              <div class="dropzone-text">Натисніть, щоб завантажити</div>
+            </label>
+          </div>
+
+          <div class="field">
+            <label>Коди малюків цієї тварини (необов'язково зараз)</label>
+            <div class="yesno-row" id="litter-type-row">
+              <button type="button" data-val="metric" class="active">Малюкам &lt; 2 місяців (номер метрики)</button>
+              <button type="button" data-val="chip">Малюкам &gt; 2 місяців (15-значний чип)</button>
+            </div>
+            <div id="litter-code-rows" style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;"></div>
+            <button type="button" class="btn btn-ghost btn-sm" id="btn-add-litter-code">+ Додати код малюка</button>
+          </div>
+
+          <button class="btn btn-primary" type="submit" style="width:100%; margin-top:6px;">Зберегти тварину і надіслати на перевірку</button>
         </form>
       </div>
 
@@ -285,6 +381,13 @@ async function uploadDoc(userId, file, label){
   return path;
 }
 
+async function markRoleConfirmed(userId){
+  // Onboarding is only "done" once the application itself is submitted —
+  // this is what lets account-redirect.html send the user straight to their
+  // cabinet on future logins instead of asking again.
+  await supabase.from('profiles').update({ role_confirmed: true }).eq('id', userId);
+}
+
 function initRegisterModal(){
   if (document.getElementById('modal-register')) return; // already injected on this page
   document.body.insertAdjacentHTML('beforeend', MODAL_HTML);
@@ -330,6 +433,137 @@ function initRegisterModal(){
     document.querySelector('.reg-panel[data-panel="breeder"] .reg-step[data-step="subtype"]').classList.add('active');
     document.getElementById('reg-login-foot').style.display = 'none';
   }
+
+  function goToParentOffer(){
+    document.querySelectorAll('.reg-panel[data-panel="breeder"] .reg-step').forEach(s => s.classList.remove('active'));
+    document.querySelector('.reg-panel[data-panel="breeder"] .reg-step[data-step="3-offer"]').classList.add('active');
+  }
+
+  document.getElementById('btn-parent-later').addEventListener('click', () => {
+    showSuccess('Заявку надіслано! 🎉', 'Кабінет вже відкрито — документи перевіримо протягом 24 годин. Тварину-батька завжди можна додати пізніше в кабінеті.', CABINET_BY_ROLE.breeder, 'Перейти в кабінет');
+  });
+  document.getElementById('btn-parent-now').addEventListener('click', () => {
+    document.querySelector('.reg-panel[data-panel="breeder"] .reg-step[data-step="3-offer"]').classList.remove('active');
+    document.querySelector('.reg-panel[data-panel="breeder"] .reg-step[data-step="3-parent-form"]').classList.add('active');
+  });
+
+  // --- parent form: species toggle (breed datalist + EMS field visibility) ---
+  const parentBreedList = document.getElementById('parent-breed-list');
+  let parentSpecies = 'cat';
+  function fillBreedList(species){
+    const list = species === 'dog' ? DOG_BREEDS : CAT_BREEDS;
+    parentBreedList.innerHTML = list.map(b => `<option value="${b}">`).join('');
+    document.getElementById('parent-ems-field').style.display = species === 'cat' ? 'block' : 'none';
+  }
+  fillBreedList('cat');
+  const speciesSwitcher = document.getElementById('parent-species-switcher');
+  speciesSwitcher.querySelectorAll('button').forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      speciesSwitcher.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      speciesSwitcher.querySelector('.role-switcher-thumb').style.transform = `translateX(${idx*100}%)`;
+      parentSpecies = btn.dataset.species;
+      fillBreedList(parentSpecies);
+      document.querySelector('#reg-form-parent [name=breed]').value = '';
+    });
+  });
+  // position the thumb under whichever button starts as .active (Кішка, index 1)
+  speciesSwitcher.querySelectorAll('button').forEach((btn, idx) => {
+    if (btn.classList.contains('active')) speciesSwitcher.querySelector('.role-switcher-thumb').style.transform = `translateX(${idx*100}%)`;
+  });
+
+  // --- parent form: gender toggle ---
+  let parentGender = 'female';
+  const genderRow = document.getElementById('parent-gender-row');
+  genderRow.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      genderRow.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      parentGender = btn.dataset.val;
+    });
+  });
+
+  // --- parent form: litter code type + dynamic code rows ---
+  let litterCodeType = 'metric';
+  const litterTypeRow = document.getElementById('litter-type-row');
+  litterTypeRow.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      litterTypeRow.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      litterCodeType = btn.dataset.val;
+      document.querySelectorAll('.litter-code-input').forEach(inp => applyLitterInputRules(inp));
+    });
+  });
+  function applyLitterInputRules(input){
+    if (litterCodeType === 'chip'){
+      input.placeholder = '15 цифр, напр. 900115000123456';
+      input.setAttribute('inputmode', 'numeric');
+      input.setAttribute('pattern', '\\d{15}');
+      input.maxLength = 15;
+    } else {
+      input.placeholder = 'Напр. WCF-UA-105-01';
+      input.removeAttribute('pattern');
+      input.removeAttribute('inputmode');
+      input.removeAttribute('maxlength');
+    }
+  }
+  document.getElementById('btn-add-litter-code').addEventListener('click', () => {
+    const wrap = document.getElementById('litter-code-rows');
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex; gap:8px; align-items:center;';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'litter-code-input';
+    input.style.cssText = 'flex:1; padding:11px 16px; border-radius:14px; border:1.5px solid var(--border-soft); background:var(--peach); font-family:var(--ff-body); font-size:14.5px;';
+    applyLitterInputRules(input);
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'icon-btn danger';
+    removeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+    removeBtn.addEventListener('click', () => row.remove());
+    row.appendChild(input); row.appendChild(removeBtn);
+    wrap.appendChild(row);
+  });
+
+  // --- parent form submit ---
+  document.getElementById('reg-form-parent').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError('reg-error');
+    const f = new FormData(e.target);
+    const btn = e.target.querySelector('button[type=submit]');
+    setLoading(btn, true);
+    try{
+      const { data: { user } } = await supabase.auth.getUser();
+      const photoFile = e.target.querySelector('[name=p_photo]').files[0];
+      const pedigreeFile = e.target.querySelector('[name=p_pedigree]').files[0];
+      const vetFile = e.target.querySelector('[name=p_vetpassport]').files[0];
+      const photoPath = photoFile ? await uploadDoc(user.id, photoFile, 'parent-photo') : null;
+      const pedigreePath = await uploadDoc(user.id, pedigreeFile, 'parent-pedigree');
+      const vetPath = await uploadDoc(user.id, vetFile, 'parent-vetpassport');
+
+      const { data: parentRow, error: parentErr } = await supabase.from('parent_animals').insert({
+        breeder_id: user.id, species: parentSpecies, gender: parentGender,
+        official_name: f.get('official_name'), home_name: f.get('home_name'),
+        breed: f.get('breed'), birth_date: f.get('birth_date') || null, color: f.get('color'),
+        ems_code: parentSpecies === 'cat' ? f.get('ems_code') : null,
+        photo_path: photoPath, pedigree_doc_path: pedigreePath, vetpassport_doc_path: vetPath
+      }).select().single();
+      if (parentErr) throw parentErr;
+
+      const codeInputs = Array.from(document.querySelectorAll('.litter-code-input')).map(i => i.value.trim()).filter(Boolean);
+      if (codeInputs.length){
+        const rows = codeInputs.map(code => ({ parent_id: parentRow.id, code, code_type: litterCodeType }));
+        const { error: codesErr } = await supabase.from('litter_codes').insert(rows);
+        if (codesErr) throw codesErr;
+      }
+
+      setLoading(btn, false);
+      showSuccess('Тварину додано! 🎉', 'Кабінет вже відкрито — документи батька/матері перевіримо разом із заявкою протягом 24 годин.', CABINET_BY_ROLE.breeder, 'Перейти в кабінет');
+    } catch(err){
+      setLoading(btn, false);
+      showError('Не вдалося зберегти тварину. Перевірте файли та спробуйте ще раз.', 'reg-error');
+    }
+  });
 
   // breeder sub-type cards
   let selectedBreederType = 'private';
@@ -465,8 +699,9 @@ function initRegisterModal(){
         passport_doc_path: passportPath, proof_doc_type: selectedDocType, proof_doc_path: proofPath
       });
       if (error) throw error;
+      await markRoleConfirmed(user.id);
       setLoading(btn, false);
-      showSuccess('Заявку надіслано! 🎉', 'Кабінет вже відкрито — документи перевіримо протягом 24 годин.', CABINET_BY_ROLE.breeder, 'Перейти в кабінет');
+      goToParentOffer();
     } catch(err){
       setLoading(btn, false);
       showError('Не вдалося надіслати заявку. Перевірте файли та спробуйте ще раз.', 'reg-error');
@@ -499,6 +734,7 @@ function initRegisterModal(){
         marriage_cert_doc_path: marriagePath
       });
       if (error) throw error;
+      await markRoleConfirmed(user.id);
       setLoading(btn, false);
       showSuccess('Заявку надіслано! 🎉', 'Кабінет вже відкрито — документи розплідника перевіримо протягом 24 годин.', CABINET_BY_ROLE.breeder, 'Перейти в кабінет');
     } catch(err){
@@ -535,6 +771,7 @@ function initRegisterModal(){
         exotic_doc_path: exoticDocPath, exotic_proof_path: exoticProofPath
       });
       if (error) throw error;
+      await markRoleConfirmed(user.id);
       setLoading(btn, false);
       showSuccess('Заявку надіслано! 🎉', 'Кабінет вже відкрито — перевіримо документи чи умови утримання протягом 24 годин.', CABINET_BY_ROLE.breeder, 'Перейти в кабінет');
     } catch(err){
@@ -577,6 +814,7 @@ function initRegisterModal(){
         user_id: user.id, type: 'shelter', contact: f.get('contact'), shelter_status: f.get('shelter_status')
       });
       if (error) throw error;
+      await markRoleConfirmed(user.id);
       setLoading(btn, false);
       showSuccess('Заявку надіслано! 🎉', 'Кабінет вже відкрито — дані перевіримо протягом 24 годин.', CABINET_BY_ROLE.shelter, 'Перейти в кабінет');
     } catch(err){

@@ -1,6 +1,9 @@
 // ============================================================
-// ZOOTO — Кабінет заводчика (demo prototype, local storage only)
+// ZOOTO — Кабінет заводчика (demo prototype, local storage only —
+// окрім тварин-батьків, які зберігаються по-справжньому в Supabase)
 // ============================================================
+import { supabase } from './auth-client.js';
+import { DOG_BREEDS, CAT_BREEDS } from './breed-data.js';
 
 const STORAGE_KEY = 'zooto_demo_breeder_v1';
 const PAW_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.5c-2.6 0-6 3-6 5.8 0 1.5 1.1 2.4 2.6 2.4.9 0 1.7-.3 2.6-.6.5-.2 1.1-.4 1.6-.4h.4c.5 0 1.1.2 1.6.4.9.3 1.7.6 2.6.6 1.5 0 2.6-.9 2.6-2.4 0-2.8-3.4-5.8-6-5.8Z"/><ellipse cx="5.2" cy="10.2" rx="2" ry="2.6"/><ellipse cx="9.6" cy="6.2" rx="2" ry="2.6"/><ellipse cx="14.4" cy="6.2" rx="2" ry="2.6"/><ellipse cx="18.8" cy="10.2" rx="2" ry="2.6"/></svg>';
@@ -37,14 +40,22 @@ function saveState(s){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(s))
 
 let state = loadState();
 let editingAnimalId = null;
+let currentUserId = null;
+let parents = []; // real Supabase rows: { id, official_name, home_name, breed, gender, species, status, litter_codes: [...] }
+let editingParentId = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initTabs();
   initModals();
   initToasts();
   bindAnimalControls();
   bindPromoControls();
+  bindParentControls();
   renderAll(); // renderVerify() (called within) builds the checklist DOM and binds its own file inputs
+
+  await fetchParents();
+  renderParents();
+  populateAnimalParentSelect();
 
   const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
     entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); } });
@@ -72,6 +83,7 @@ function initTabs(){
     document.getElementById('cab-panel-'+tab.dataset.tab).classList.add('active');
     move(tab);
     if (tab.dataset.tab === 'promote') populatePromoTargetSelect();
+    if (tab.dataset.tab === 'parents') renderParents();
   }));
   const active = document.querySelector('.cab-tab.active') || tabs[0];
   requestAnimationFrame(()=>move(active));
@@ -133,12 +145,19 @@ function resetAnimalForm(){
   document.getElementById('animal-photo-preview').innerHTML = dzIcon();
   document.getElementById('animal-vet-preview').innerHTML = dzIcon();
   f.dataset.photo = ''; f.dataset.vetphoto = '';
+  populateAnimalParentSelect();
+  document.getElementById('animal-litter-code-field').style.display = 'none';
 }
 function dzIcon(){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>'; }
 
 function onAnimalSubmit(e){
   e.preventDefault();
   const f = e.target;
+  const parentId = f.querySelector('[name=parent_id]').value || null;
+  const litterCodeId = f.querySelector('[name=litter_code_id]').value || null;
+  const parent = parentId ? parents.find(p => p.id === parentId) : null;
+  const litterCode = parent && litterCodeId ? parent.litter_codes.find(c => c.id === litterCodeId) : null;
+
   const data = {
     name: f.querySelector('[name=name]').value.trim(),
     breed: f.querySelector('[name=breed]').value.trim(),
@@ -150,9 +169,22 @@ function onAnimalSubmit(e){
     status: f.querySelector('[name=status]').value,
     chip: f.querySelector('[name=chip]').value.trim(),
     photo: f.dataset.photo || '',
-    vetPhoto: f.dataset.vetphoto || ''
+    vetPhoto: f.dataset.vetphoto || '',
+    parentId: parent ? parent.id : null,
+    parentName: parent ? (parent.home_name || parent.official_name) : '',
+    litterCodeId: litterCode ? litterCode.id : null,
+    litterCode: litterCode ? litterCode.code : ''
   };
   if (!data.breed || !data.gender || !data.color || !data.price) return;
+
+  // free the previously-used litter code if we're editing and it changed
+  const prevAnimal = editingAnimalId ? state.animals.find(a => a.id === editingAnimalId) : null;
+  if (prevAnimal && prevAnimal.litterCodeId && prevAnimal.litterCodeId !== data.litterCodeId){
+    markLitterCodeUsed(prevAnimal.litterCodeId, false);
+  }
+  if (data.litterCodeId){
+    markLitterCodeUsed(data.litterCodeId, true);
+  }
 
   if (editingAnimalId){
     const idx = state.animals.findIndex(a => a.id === editingAnimalId);
@@ -167,6 +199,16 @@ function onAnimalSubmit(e){
     toast('Вихованця додано');
   }
   saveState(state); closeModal('modal-animal'); renderAnimals(); renderStats();
+}
+async function markLitterCodeUsed(litterCodeId, used){
+  try{
+    await supabase.from('litter_codes').update({ is_used: used }).eq('id', litterCodeId);
+    const parent = parents.find(p => p.litter_codes.some(c => c.id === litterCodeId));
+    if (parent){
+      const code = parent.litter_codes.find(c => c.id === litterCodeId);
+      if (code) code.is_used = used;
+    }
+  } catch(err){ /* best-effort — demo listings stay local either way */ }
 }
 function editAnimal(id){
   const a = state.animals.find(x=>x.id===id); if(!a) return;
@@ -184,6 +226,10 @@ function editAnimal(id){
   f.dataset.photo = a.photo || ''; f.dataset.vetphoto = a.vetPhoto || '';
   document.getElementById('animal-photo-preview').innerHTML = a.photo ? `<img src="${a.photo}" alt="">` : dzIcon();
   document.getElementById('animal-vet-preview').innerHTML = a.vetPhoto ? (a.vetPhoto.startsWith('data:application/pdf') ? DOC_ICON : `<img src="${a.vetPhoto}" alt="">`) : dzIcon();
+  populateAnimalParentSelect();
+  document.getElementById('animal-parent-select').value = a.parentId || '';
+  if (a.parentId) populateLitterCodeSelect(a.parentId, a.litterCodeId);
+  else document.getElementById('animal-litter-code-field').style.display = 'none';
   document.getElementById('animal-modal-title').textContent = 'Редагувати картку';
   openModal('modal-animal');
 }
@@ -236,6 +282,7 @@ function renderAnimals(){
           <span class="b-tag">${escapeHtml(a.color)}</span>
           <span class="status-pill status-${a.status === 'available' ? 'available' : (a.status==='reserved' ? 'reserved' : 'adopted')}">${STATUS_LABEL[a.status]}</span>
         </div>
+        ${a.parentId ? `<div class="verify-badge state-done" style="display:inline-flex; margin-bottom:10px;">${CHECK_ICON}<span>Перевірене походження — ${escapeHtml(a.parentName || '')}</span></div>` : ''}
         ${a.desc ? `<p class="b-desc">${escapeHtml(a.desc)}</p>` : ''}
         <button class="btn btn-ghost btn-sm b-promote-btn" onclick="goPromote('${a.id}')">
           ${isPromoted ? 'Керувати просуванням' : '🚀 Просунути в топ'}
@@ -244,6 +291,252 @@ function renderAnimals(){
     </div>`;
   }).join('');
 }
+
+/* ============================================================ PARENT ANIMALS (real Supabase) */
+async function fetchParents(){
+  try{
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user){ parents = []; return; }
+    currentUserId = user.id;
+    const { data: parentRows, error } = await supabase
+      .from('parent_animals')
+      .select('*')
+      .eq('breeder_id', user.id)
+      .order('created_at', { ascending: false });
+    if (error || !parentRows){ parents = []; return; }
+    const { data: codeRows } = await supabase
+      .from('litter_codes')
+      .select('*')
+      .in('parent_id', parentRows.map(p => p.id));
+    parents = parentRows.map(p => ({
+      ...p,
+      litter_codes: (codeRows || []).filter(c => c.parent_id === p.id)
+    }));
+  } catch(err){
+    parents = [];
+  }
+}
+
+const PARENT_STATUS_LABEL = { pending:'На розгляді', verified:'Перевірено', rejected:'Відхилено' };
+function renderParents(){
+  const grid = document.getElementById('parent-grid');
+  if (!grid) return;
+  if (!currentUserId){
+    grid.innerHTML = `
+      <div class="cab-empty">
+        <div class="icon-badge" style="margin:0 auto 16px;">${PAW_ICON}</div>
+        <h4>Увійдіть у справжній акаунт</h4>
+        <p>Тварини-батьки зберігаються по-справжньому в базі даних і прив'язані до вашого акаунту — цей екран показує їх лише для увійшлих користувачів.</p>
+      </div>`;
+    return;
+  }
+  if (!parents.length){
+    grid.innerHTML = `
+      <div class="cab-empty">
+        <div class="icon-badge" style="margin:0 auto 16px;">${PAW_ICON}</div>
+        <h4>Ще немає жодної зареєстрованої тварини</h4>
+        <p>Додайте маму чи тата — після перевірки модератором зможете прив'язувати до них оголошення малюків.</p>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('btn-add-parent').click()">+ Додати тварину-батька</button>
+      </div>`;
+    return;
+  }
+  grid.innerHTML = parents.map(p => {
+    const used = p.litter_codes.filter(c => c.is_used).length;
+    const total = p.litter_codes.length;
+    return `
+    <div class="b-animal-card reveal in-view">
+      <div class="b-photo">${PAW_ICON}</div>
+      <div class="b-body">
+        <div class="b-body-top">
+          <h4>${escapeHtml(p.home_name || p.official_name)}</h4>
+          <span class="status-pill status-${p.status === 'verified' ? 'available' : (p.status === 'rejected' ? 'adopted' : 'reserved')}">${PARENT_STATUS_LABEL[p.status] || PARENT_STATUS_LABEL.pending}</span>
+        </div>
+        <div class="b-meta">
+          <span class="b-tag gender-pill">${p.gender === 'female' ? 'Самка' : 'Самець'}</span>
+          <span class="b-tag">${p.species === 'dog' ? 'Собака' : 'Кішка'}</span>
+          <span class="b-tag">${escapeHtml(p.breed)}</span>
+          ${p.color ? `<span class="b-tag">${escapeHtml(p.color)}</span>` : ''}
+        </div>
+        <p class="b-desc">Кодів малюків: ${total ? `${used}/${total} використано` : 'ще не додано'}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function populateAnimalParentSelect(){
+  const sel = document.getElementById('animal-parent-select');
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = '<option value="">— не прив\'язувати —</option>' +
+    parents.map(p => `<option value="${p.id}">${escapeHtml(p.home_name || p.official_name)} (${escapeHtml(p.breed)})</option>`).join('');
+  sel.value = current;
+}
+function populateLitterCodeSelect(parentId, preselectId){
+  const field = document.getElementById('animal-litter-code-field');
+  const sel = document.getElementById('animal-litter-code-select');
+  const parent = parents.find(p => p.id === parentId);
+  const unused = parent ? parent.litter_codes.filter(c => !c.is_used || c.id === preselectId) : [];
+  if (!parent || !unused.length){
+    field.style.display = 'none';
+    sel.innerHTML = '<option value="">Оберіть код</option>';
+    return;
+  }
+  field.style.display = 'block';
+  sel.innerHTML = '<option value="">Оберіть код</option>' +
+    unused.map(c => `<option value="${c.id}">${escapeHtml(c.code)} (${c.code_type === 'chip' ? 'чип' : 'метрика'})</option>`).join('');
+  if (preselectId) sel.value = preselectId;
+}
+
+/* ---------- parent registration form (modal) ---------- */
+function bindParentControls(){
+  document.getElementById('btn-add-parent').addEventListener('click', () => {
+    if (!currentUserId){ toast('Увійдіть у акаунт, щоб додати тварину'); return; }
+    editingParentId = null;
+    resetParentForm();
+    document.getElementById('parent-modal-title').textContent = 'Тварина-батько / мати';
+    openModal('modal-parent');
+  });
+
+  document.getElementById('animal-parent-select').addEventListener('change', (e) => {
+    populateLitterCodeSelect(e.target.value, null);
+  });
+
+  const speciesSwitcher = document.getElementById('cab-parent-species-switcher');
+  let parentSpecies = 'cat';
+  function fillBreedList(species){
+    const list = document.getElementById('cab-parent-breed-list');
+    list.innerHTML = (species === 'dog' ? DOG_BREEDS : CAT_BREEDS).map(b => `<option value="${b}">`).join('');
+    document.getElementById('cab-parent-ems-field').style.display = species === 'cat' ? 'block' : 'none';
+  }
+  fillBreedList('cat');
+  speciesSwitcher.querySelectorAll('button').forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      speciesSwitcher.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      speciesSwitcher.querySelector('.role-switcher-thumb').style.transform = `translateX(${idx*100}%)`;
+      parentSpecies = btn.dataset.species;
+      fillBreedList(parentSpecies);
+    });
+  });
+  window.__parentSpeciesGetter = () => parentSpecies;
+
+  let parentGender = 'female';
+  const genderRow = document.getElementById('cab-parent-gender-row');
+  genderRow.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      genderRow.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      parentGender = btn.dataset.val;
+    });
+  });
+  window.__parentGenderGetter = () => parentGender;
+
+  let litterCodeType = 'metric';
+  const litterTypeRow = document.getElementById('cab-litter-type-row');
+  litterTypeRow.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      litterTypeRow.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      litterCodeType = btn.dataset.val;
+      document.querySelectorAll('.cab-litter-code-input').forEach(inp => applyCabLitterInputRules(inp));
+    });
+  });
+  function applyCabLitterInputRules(input){
+    if (litterCodeType === 'chip'){
+      input.placeholder = '15 цифр, напр. 900115000123456';
+      input.setAttribute('pattern', '\\d{15}'); input.maxLength = 15;
+    } else {
+      input.placeholder = 'Напр. WCF-UA-105-01';
+      input.removeAttribute('pattern'); input.removeAttribute('maxlength');
+    }
+  }
+  document.getElementById('btn-cab-add-litter-code').addEventListener('click', () => {
+    const wrap = document.getElementById('cab-litter-code-rows');
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex; gap:8px; align-items:center;';
+    const input = document.createElement('input');
+    input.type = 'text'; input.className = 'cab-litter-code-input';
+    input.style.cssText = 'flex:1; padding:11px 16px; border-radius:14px; border:1.5px solid var(--border-soft); background:var(--peach); font-family:var(--ff-body); font-size:14.5px;';
+    applyCabLitterInputRules(input);
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button'; removeBtn.className = 'icon-btn danger';
+    removeBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+    removeBtn.addEventListener('click', () => row.remove());
+    row.appendChild(input); row.appendChild(removeBtn);
+    wrap.appendChild(row);
+  });
+  window.__litterCodeTypeGetter = () => litterCodeType;
+
+  document.querySelector('#parent-form [name=p_photo]').addEventListener('change', (e) => filePreview(e, 'cab-parent-photo-preview', () => {}));
+  document.querySelector('#parent-form [name=p_pedigree]').addEventListener('change', (e) => filePreview(e, 'cab-parent-pedigree-preview', () => {}));
+  document.querySelector('#parent-form [name=p_vetpassport]').addEventListener('change', (e) => filePreview(e, 'cab-parent-vet-preview', () => {}));
+
+  document.getElementById('parent-form').addEventListener('submit', onParentSubmit);
+}
+
+function resetParentForm(){
+  const f = document.getElementById('parent-form'); f.reset();
+  document.getElementById('cab-parent-photo-preview').innerHTML = dzIcon();
+  document.getElementById('cab-parent-pedigree-preview').innerHTML = dzIcon();
+  document.getElementById('cab-parent-vet-preview').innerHTML = dzIcon();
+  document.getElementById('cab-litter-code-rows').innerHTML = '';
+}
+
+async function onParentSubmit(e){
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const btn = e.target.querySelector('button[type=submit]');
+  const originalLabel = btn.textContent;
+  btn.disabled = true; btn.textContent = 'Зберігаємо…';
+  try{
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user){ toast('Увійдіть у акаунт, щоб додати тварину'); btn.disabled = false; btn.textContent = originalLabel; return; }
+
+    const photoFile = e.target.querySelector('[name=p_photo]').files[0];
+    const pedigreeFile = e.target.querySelector('[name=p_pedigree]').files[0];
+    const vetFile = e.target.querySelector('[name=p_vetpassport]').files[0];
+    const photoPath = photoFile ? await uploadParentDoc(user.id, photoFile, 'parent-photo') : null;
+    const pedigreePath = await uploadParentDoc(user.id, pedigreeFile, 'parent-pedigree');
+    const vetPath = await uploadParentDoc(user.id, vetFile, 'parent-vetpassport');
+
+    const species = window.__parentSpeciesGetter();
+    const gender = window.__parentGenderGetter();
+    const litterType = window.__litterCodeTypeGetter();
+
+    const { data: parentRow, error: pErr } = await supabase.from('parent_animals').insert({
+      breeder_id: user.id, species, gender,
+      official_name: f.get('official_name'), home_name: f.get('home_name'),
+      breed: f.get('breed'), birth_date: f.get('birth_date') || null, color: f.get('color'),
+      ems_code: species === 'cat' ? f.get('ems_code') : null,
+      photo_path: photoPath, pedigree_doc_path: pedigreePath, vetpassport_doc_path: vetPath
+    }).select().single();
+    if (pErr) throw pErr;
+
+    const codes = Array.from(document.querySelectorAll('.cab-litter-code-input')).map(i => i.value.trim()).filter(Boolean);
+    if (codes.length){
+      const rows = codes.map(code => ({ parent_id: parentRow.id, code, code_type: litterType }));
+      const { error: cErr } = await supabase.from('litter_codes').insert(rows);
+      if (cErr) throw cErr;
+    }
+
+    btn.disabled = false; btn.textContent = originalLabel;
+    closeModal('modal-parent');
+    toast('Тварину додано, чекає на перевірку');
+    await fetchParents();
+    renderParents();
+    populateAnimalParentSelect();
+  } catch(err){
+    btn.disabled = false; btn.textContent = originalLabel;
+    toast('Не вдалося зберегти. Перевірте файли та спробуйте ще раз.');
+  }
+}
+async function uploadParentDoc(userId, file, label){
+  const path = `${userId}/${label}-${Date.now()}-${file.name}`;
+  const { error } = await supabase.storage.from('verification-docs').upload(path, file);
+  if (error) throw error;
+  return path;
+}
+
 function goPromote(animalId){
   document.querySelector('.cab-tab[data-tab="promote"]').click();
   setTimeout(() => {

@@ -52,6 +52,7 @@
     <div class="cab-tabs">
       <button class="cab-tab active" data-tab="overview">Огляд</button>
       <button class="cab-tab" data-tab="animals">Тварини</button>
+      <button class="cab-tab" data-tab="parents">Батьки</button>
       <button class="cab-tab" data-tab="promote">Просування</button>
       <button class="cab-tab" data-tab="verify">Верифікація</button>
       <button class="cab-tab" data-tab="wallet">Гаманець</button>
@@ -101,6 +102,20 @@
       <button class="btn btn-primary" id="btn-add-animal">+ Додати вихованця</button>
     </div>
     <div class="animal-grid" id="animal-grid"></div>
+  </div>
+</div>
+
+<!-- ============ PARENTS ============ -->
+<div class="cab-panel" id="cab-panel-parents">
+  <div class="container">
+    <div class="cab-panel-head">
+      <div>
+        <h2>Батьки</h2>
+        <p>Зареєстровані племінні тварини. Прив'язуйте оголошення малюків до перевіреного батька — так покупці бачать «Перевірене походження» без повторної модерації.</p>
+      </div>
+      <button class="btn btn-primary" id="btn-add-parent">+ Додати тварину-батька</button>
+    </div>
+    <div class="animal-grid" id="parent-grid"></div>
   </div>
 </div>
 
@@ -313,7 +328,20 @@
         </div>
       </div>
       <div class="field">
-        <label>Номер чипа / клейма (якщо є)</label>
+        <label>Прив'язати до зареєстрованого батька/матері (необов'язково)</label>
+        <select id="animal-parent-select" name="parent_id">
+          <option value="">— не прив'язувати —</option>
+        </select>
+        <p class="field-hint" id="animal-parent-hint">Оголошення від перевіреного батька одразу отримує позначку «Перевірене походження».</p>
+      </div>
+      <div class="field" id="animal-litter-code-field" style="display:none;">
+        <label>Код малюка цього батька</label>
+        <select id="animal-litter-code-select" name="litter_code_id">
+          <option value="">Оберіть код</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Номер чипа / клейма (якщо код не обрано вище)</label>
         <input type="text" name="chip" placeholder="UA123456789">
       </div>
       <div class="field">
@@ -329,6 +357,80 @@
   </div>
 </div>
 
-<script src="assets/cabinet-breeder.js"></script>
+<!-- ============ MODAL: PARENT ANIMAL ============ -->
+<div class="modal-backdrop" id="modal-parent">
+  <div class="modal">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <h3 id="parent-modal-title">Тварина-батько / мати</h3>
+    <p class="sub">Головний документ — офіційний родовід (він єдиний підтверджує породу).</p>
+    <form id="parent-form">
+      <div class="role-switcher" data-active="1" id="cab-parent-species-switcher" style="max-width:220px;">
+        <div class="role-switcher-thumb" style="width:calc(50% - 5px);"></div>
+        <button type="button" data-species="dog">Собака</button>
+        <button type="button" data-species="cat" class="active">Кішка</button>
+      </div>
+      <div class="field" style="margin-top:16px;">
+        <label>Стать</label>
+        <div class="yesno-row" id="cab-parent-gender-row">
+          <button type="button" data-val="female" class="active">Самка (мама)</button>
+          <button type="button" data-val="male">Самець (тато)</button>
+        </div>
+      </div>
+      <div class="reg-name-row" style="grid-template-columns:1fr 1fr;">
+        <div class="field"><label>Кличка за документами</label><input type="text" name="official_name" required placeholder="Напр. Stella From Golden Family"></div>
+        <div class="field"><label>Домашня кличка</label><input type="text" name="home_name" placeholder="Напр. Стелла"></div>
+      </div>
+      <div class="field">
+        <label>Порода</label>
+        <input type="text" name="breed" list="cab-parent-breed-list" required placeholder="Почніть вводити назву породи...">
+        <datalist id="cab-parent-breed-list"></datalist>
+      </div>
+      <div class="reg-name-row" style="grid-template-columns:1fr 1fr;">
+        <div class="field"><label>Дата народження</label><input type="date" name="birth_date"></div>
+        <div class="field"><label>Окрас</label><input type="text" name="color" placeholder="Напр. Блакитний солід"></div>
+      </div>
+      <div class="field" id="cab-parent-ems-field">
+        <label>EMS-код окрасу</label>
+        <input type="text" name="ems_code" placeholder="Напр. MCO a 22">
+      </div>
+      <div class="field">
+        <label>Головне фото тварини</label>
+        <label class="dropzone">
+          <input type="file" name="p_photo" accept="image/*">
+          <div class="dropzone-thumb" id="cab-parent-photo-preview"></div>
+          <div class="dropzone-text">Натисніть, щоб завантажити<span>Підтягнеться в оголошення малюків</span></div>
+        </label>
+      </div>
+      <div class="field">
+        <label>Родовід (Pedigree)</label>
+        <label class="dropzone">
+          <input type="file" name="p_pedigree" accept="image/*" required>
+          <div class="dropzone-thumb" id="cab-parent-pedigree-preview"></div>
+          <div class="dropzone-text">Натисніть, щоб завантажити</div>
+        </label>
+      </div>
+      <div class="field">
+        <label>Міжнародний ветпаспорт</label>
+        <label class="dropzone">
+          <input type="file" name="p_vetpassport" accept="image/*" required>
+          <div class="dropzone-thumb" id="cab-parent-vet-preview"></div>
+          <div class="dropzone-text">Натисніть, щоб завантажити</div>
+        </label>
+      </div>
+      <div class="field">
+        <label>Коди малюків цієї тварини (необов'язково зараз)</label>
+        <div class="yesno-row" id="cab-litter-type-row">
+          <button type="button" data-val="metric" class="active">Малюкам &lt; 2 місяців (номер метрики)</button>
+          <button type="button" data-val="chip">Малюкам &gt; 2 місяців (15-значний чип)</button>
+        </div>
+        <div id="cab-litter-code-rows" style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px;"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-cab-add-litter-code">+ Додати код малюка</button>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%; margin-top:6px;">Зберегти тварину</button>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="assets/cabinet-breeder.js"></script>
 </body>
 </html>
