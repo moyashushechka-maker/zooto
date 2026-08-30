@@ -10,13 +10,6 @@ const PAW_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 13.5
 const DOC_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>';
 const CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
 
-const VERIFY_ITEMS = [
-  { key:'id', title:'Фото паспорта / ID власника', sub:'Лише для внутрішньої перевірки та арбітражу — не публікується на сайті.' },
-  { key:'kennel', title:'Сертифікат розплідника', sub:'КСУ, WCF, TICA, FIFe, CFA, УКФ, ККУ чи інша офіційна організація.' },
-  { key:'pedigree', title:'Родоводи батьків приплоду', sub:'Офіційні родоводи матері та батька з печатками організації.' },
-  { key:'vetpassport', title:'Ветпаспорт з щепленнями', sub:'Сторінка з відмітками про чипування, обробку від паразитів і вакцинацію.' }
-];
-
 const PROMO_ANCHORS = [[3,120],[7,240],[14,420]]; // [days, total grn] — 40 грн/день база, знижки за обсяг
 const BANNER_RATE = 75;
 
@@ -51,11 +44,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindAnimalControls();
   bindPromoControls();
   bindParentControls();
-  renderAll(); // renderVerify() (called within) builds the checklist DOM and binds its own file inputs
+  document.getElementById('btn-locked-more').addEventListener('click', () => openModal('modal-why-parent'));
+  renderAll();
 
   await fetchParents();
   renderParents();
   populateAnimalParentSelect();
+
+  await fetchAccountStatus();
+  renderAccountStatus();
 
   const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
     entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); } });
@@ -282,7 +279,10 @@ function renderAnimals(){
           <span class="b-tag">${escapeHtml(a.color)}</span>
           <span class="status-pill status-${a.status === 'available' ? 'available' : (a.status==='reserved' ? 'reserved' : 'adopted')}">${STATUS_LABEL[a.status]}</span>
         </div>
-        ${a.parentId ? `<div class="verify-badge state-done" style="display:inline-flex; margin-bottom:10px;">${CHECK_ICON}<span>Перевірене походження — ${escapeHtml(a.parentName || '')}</span></div>` : ''}
+        ${a.parentId
+          ? `<div class="verify-badge state-done" style="display:inline-flex; margin-bottom:10px;">${CHECK_ICON}<span>Перевірене походження — ${escapeHtml(a.parentName || '')}</span></div>`
+          : `<div class="verify-badge state-pending" style="display:inline-flex; margin-bottom:10px;"><span>⚠️ Непідтверджена родословна</span></div>`
+        }
         ${a.desc ? `<p class="b-desc">${escapeHtml(a.desc)}</p>` : ''}
         <button class="btn btn-ghost btn-sm b-promote-btn" onclick="goPromote('${a.id}')">
           ${isPromoted ? 'Керувати просуванням' : '🚀 Просунути в топ'}
@@ -545,75 +545,66 @@ function goPromote(animalId){
   }, 50);
 }
 
-/* ============================================================ VERIFICATION */
-function bindVerifyControls(){
-  VERIFY_ITEMS.forEach(item => {
-    const input = document.getElementById('verify-file-' + item.key);
-    input.addEventListener('change', (e) => {
-      const file = e.target.files[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        state.verify[item.key] = reader.result;
-        saveState(state);
-        renderVerify();
-        toast('Документ завантажено');
-      };
-      reader.readAsDataURL(file);
-    });
-  });
+/* ============================================================ ACCOUNT STATUS (real Supabase — gates listing creation) */
+let accountApplicationStatus = null; // 'pending' | 'approved' | 'rejected' | null (no application found)
+let accountRejectReason = '';
+
+async function fetchAccountStatus(){
+  try{
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user){ accountApplicationStatus = null; return; }
+    const { data, error } = await supabase
+      .from('applications')
+      .select('status, reject_reason')
+      .eq('user_id', user.id)
+      .eq('type', 'breeder')
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error || !data){ accountApplicationStatus = null; return; }
+    accountApplicationStatus = data.status;
+    accountRejectReason = data.reject_reason || '';
+  } catch(err){
+    accountApplicationStatus = null;
+  }
 }
-function removeVerifyDoc(key){
-  state.verify[key] = '';
-  saveState(state); renderVerify();
-}
-function renderVerify(){
-  const doneCount = VERIFY_ITEMS.filter(i => !!state.verify[i.key]).length;
-  const total = VERIFY_ITEMS.length;
-  const pct = Math.round((doneCount/total)*100);
 
-  // ring
-  const r = 34, c = 2*Math.PI*r;
-  document.getElementById('vp-ring-fill').setAttribute('stroke-dasharray', c);
-  document.getElementById('vp-ring-fill').setAttribute('stroke-dashoffset', c - (pct/100)*c);
-  document.getElementById('vp-ring-label').textContent = doneCount + '/' + total;
+function renderAccountStatus(){
+  const badge = document.getElementById('cab-account-badge');
+  const addBtn = document.getElementById('btn-add-animal');
+  const banner = document.getElementById('animals-locked-banner');
+  const grid = document.getElementById('animal-grid');
 
-  let state_, label;
-  if (doneCount === 0){ state_='none'; label='Не верифіковано'; }
-  else if (doneCount < total){ state_='pending'; label='На розгляді'; }
-  else { state_='done'; label='Перевірений заводчик'; }
+  const STATE_META = {
+    pending:  { cls:'state-pending', label:'На розгляді' },
+    approved: { cls:'state-done',    label:'Перевірений заводчик' },
+    rejected: { cls:'state-none',    label:'Відхилено' },
+  };
+  const meta = STATE_META[accountApplicationStatus] || { cls:'state-none', label:'Немає заявки' };
+  badge.className = 'verify-badge ' + meta.cls;
+  badge.innerHTML = (accountApplicationStatus === 'approved' ? CHECK_ICON : '') + `<span>${meta.label}</span>`;
 
-  document.querySelectorAll('.verify-badge').forEach(b => {
-    b.className = 'verify-badge state-' + state_;
-    b.innerHTML = (state_==='done' ? CHECK_ICON : '') + `<span>${label}</span>`;
-  });
-  document.getElementById('verify-progress-note').textContent =
-    state_ === 'done' ? 'Усі документи завантажено — бейдж активний на вашому профілі.'
-    : `Завантажено ${doneCount} з ${total} документів. Заповніть решту, щоб отримати бейдж «Перевірений заводчик».`;
-
-  const list = document.getElementById('verify-checklist');
-  list.innerHTML = VERIFY_ITEMS.map((item, idx) => {
-    const val = state.verify[item.key];
-    const isPdf = val && val.startsWith('data:application/pdf');
-    return `
-    <div class="verify-item ${val ? 'done' : ''}">
-      <div class="verify-num">${val ? CHECK_ICON : (idx+1)}</div>
-      <div>
-        <div class="verify-item-title">${item.title}</div>
-        <div class="verify-item-sub">${item.sub}</div>
-      </div>
-      <div class="verify-item-file">
-        <label class="dropzone" style="min-width:180px;">
-          <input type="file" id="verify-file-${item.key}-visual" accept="image/*,.pdf" style="display:none;" onchange="document.getElementById('verify-file-${item.key}').files = this.files; document.getElementById('verify-file-${item.key}').dispatchEvent(new Event('change'));">
-          <div class="dropzone-thumb">${val ? (isPdf ? DOC_ICON : `<img src="${val}" alt="">`) : dzIcon()}</div>
-          <div class="dropzone-text">${val ? 'Замінити файл' : 'Завантажити'}<span></span></div>
-        </label>
-        ${val ? `<button type="button" class="icon-btn danger" title="Прибрати" onclick="removeVerifyDoc('${item.key}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg></button>` : ''}
-      </div>
-    </div>`;
-  }).join('') + VERIFY_ITEMS.map(item => `<input type="file" id="verify-file-${item.key}" accept="image/*,.pdf" style="display:none;">`).join('');
-
-  // rebind (list was re-created)
-  bindVerifyControls();
+  if (accountApplicationStatus === 'approved'){
+    addBtn.style.display = 'inline-flex';
+    banner.style.display = 'none';
+    grid.style.display = '';
+  } else {
+    addBtn.style.display = 'none';
+    grid.style.display = 'none';
+    banner.style.display = 'flex';
+    const title = document.getElementById('animals-locked-title');
+    const text = document.getElementById('animals-locked-text');
+    if (accountApplicationStatus === 'pending'){
+      title.textContent = 'Заявку на розгляді';
+      text.textContent = 'Поки модератор не підтвердить ваш паспорт та документ — виставляти оголошення не можна. Зазвичай це займає до 24 годин.';
+    } else if (accountApplicationStatus === 'rejected'){
+      title.textContent = 'Заявку відхилено';
+      text.textContent = accountRejectReason ? `Причина: ${accountRejectReason}. Напишіть у підтримку, щоб подати документи повторно.` : 'Напишіть у підтримку, щоб подати документи повторно.';
+    } else {
+      title.textContent = 'Заявку не знайдено';
+      text.textContent = 'Схоже, реєстрацію не було завершено. Напишіть у підтримку Zooto.';
+    }
+  }
 }
 
 /* ============================================================ PROMOTION */
@@ -731,7 +722,6 @@ function renderAll(){
   document.getElementById('cab-avatar-initials').textContent = state.kennel.initials;
   document.getElementById('wallet-balance').innerHTML = state.wallet.balance.toLocaleString('uk-UA') + ' <span>грн</span>';
   renderAnimals();
-  renderVerify();
   populatePromoTargetSelect();
   renderStats();
 }

@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="cab-topbar-actions">
-      <div class="verify-badge state-pending"><span>Завантаження…</span></div>
+      <div class="verify-badge state-pending" id="cab-account-badge"><span>Завантаження…</span></div>
       <a class="btn btn-ghost btn-sm" href="index.html">← На сайт Zooto</a>
       <button class="btn btn-ghost btn-sm" id="btn-reset-demo" title="Скинути демо-дані">Скинути демо</button>
     </div>
@@ -54,7 +54,6 @@
       <button class="cab-tab" data-tab="animals">Тварини</button>
       <button class="cab-tab" data-tab="parents">Батьки</button>
       <button class="cab-tab" data-tab="promote">Просування</button>
-      <button class="cab-tab" data-tab="verify">Верифікація</button>
       <button class="cab-tab" data-tab="wallet">Гаманець</button>
       <div class="cab-tabs-indicator"></div>
     </div>
@@ -99,8 +98,22 @@
         <h2>Ваші оголошення</h2>
         <p>Порода, стать і колір — обов'язково. Ім'я, опис і фото ветпаспорта — за бажанням.</p>
       </div>
-      <button class="btn btn-primary" id="btn-add-animal">+ Додати вихованця</button>
+      <button class="btn btn-primary" id="btn-add-animal" style="display:none;">+ Додати вихованця</button>
     </div>
+
+    <div class="verify-progress-card" id="animals-locked-banner" style="display:none; margin-bottom:28px;">
+      <div class="vp-left">
+        <h3 id="animals-locked-title">Заявку на розгляді</h3>
+        <p id="animals-locked-text">Поки модератор не підтвердить ваш паспорт та документ — виставляти оголошення не можна.</p>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-locked-more" style="margin-top:14px; color:var(--snow); border-color:rgba(255,255,255,.3);">Читати докладніше</button>
+      </div>
+      <div class="vp-ring-wrap">
+        <div class="icon-badge" style="width:100%; height:100%; margin:0; background:rgba(255,255,255,.12); color:var(--gold);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="M12 8v4M12 15.5h.01"/></svg>
+        </div>
+      </div>
+    </div>
+
     <div class="animal-grid" id="animal-grid"></div>
   </div>
 </div>
@@ -193,35 +206,6 @@
   </div>
 </div>
 
-<!-- ============ VERIFY ============ -->
-<div class="cab-panel" id="cab-panel-verify">
-  <div class="container">
-    <div class="cab-panel-head">
-      <div>
-        <h2>Верифікація</h2>
-        <p>Завантажте документи, щоб отримати бейдж «Перевірений заводчик» — покупці довіряють таким оголошенням більше.</p>
-      </div>
-    </div>
-
-    <div class="verify-progress-card">
-      <div class="vp-left">
-        <h3>Статус верифікації</h3>
-        <p id="verify-progress-note">Завантажте документи нижче.</p>
-      </div>
-      <div class="vp-ring-wrap">
-        <svg viewBox="0 0 80 80">
-          <defs><linearGradient id="vpGrad" x1="0" y1="0" x2="80" y2="80"><stop offset="0" stop-color="#FFB020"/><stop offset=".5" stop-color="#F26B38"/><stop offset="1" stop-color="#E8383B"/></linearGradient></defs>
-          <circle class="vp-ring-track" cx="40" cy="40" r="34"/>
-          <circle class="vp-ring-fill" id="vp-ring-fill" cx="40" cy="40" r="34"/>
-        </svg>
-        <div class="vp-ring-label" id="vp-ring-label">0/4</div>
-      </div>
-    </div>
-
-    <div class="verify-checklist" id="verify-checklist"></div>
-  </div>
-</div>
-
 <!-- ============ WALLET ============ -->
 <div class="cab-panel" id="cab-panel-wallet">
   <div class="container">
@@ -264,6 +248,23 @@
         <div class="wallet-skel w-60"></div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: WHY ADD A PARENT ============ -->
+<div class="modal-backdrop" id="modal-why-parent">
+  <div class="modal modal-lg">
+    <button class="modal-close" aria-label="Закрити">✕</button>
+    <h3>Навіщо додавати картку тварини-батька?</h3>
+    <p class="sub">На платформі Zooto діє дворівнева система верифікації оголошень.</p>
+    <div style="font-size:14.5px; line-height:1.7; opacity:.85;">
+      <p>Якщо ви публікуєте оголошення про продаж малюків без прив'язки до перевіреного батька чи матері, вашому профілю автоматично присвоюється статус «Неперевірений продавець». На таких оголошеннях відображається відповідне попередження для покупців.</p>
+      <p>Прив'язка оголошень до верифікованої картки матері/батька вирішує дві основні задачі: автоматизацію публікацій та підтвердження походження тварини.</p>
+      <p><b>1. Оптимізація часу та автоматична публікація.</b> Внесення даних дорослої тварини-плідника відбувається один раз. Модератори платформи перевіряють документи дорослої особини лише під час створення її картки. Після того як картка матері отримає статус «Підтверджено», ручна модерація для ваших наступних оголошень повністю скасовується — система схвалює оголошення автоматично за 0 секунд.</p>
+      <p><b>2. Структура картки та реєстрація номерів приплоду.</b> Під час створення картки дорослої тварини ви заповнюєте базові поля (кличка, вік, порода, колір, EMS-код для кішок, номер мікрочипа) і прикріплюєте фото тварини, родовід та ветпаспорт. Окремо можна одразу внести коди малюків — номери метрик (якщо їм ще нема 2 місяців) або 15-значні номери чипів (якщо вже є).</p>
+      <p><b>3. Механіка перевірки для покупця.</b> Покупець бачить пряме посилання на картку верифікованої матері прямо в оголошенні, а код малюка звіряється з базою, яку ви внесли при реєстрації батька. Це на 100% підтверджує чистокровність тварини і захищає платформу від шахрайства.</p>
+    </div>
+    <button type="button" class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="document.getElementById('modal-why-parent').classList.remove('open'); document.body.style.overflow='';">Зрозуміло</button>
   </div>
 </div>
 

@@ -6,6 +6,7 @@
 <title>Адмін-панель — Zooto</title>
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/cabinet.css">
+<link rel="stylesheet" href="assets/auth.css">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" href="assets/favicon-512.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -14,8 +15,23 @@
 <div class="grain"></div>
 <div class="cursor-glow"></div>
 
+<!-- ============ ACCESS GATE ============ -->
+<div class="auth-shell" id="admin-gate" style="display:none;">
+  <div class="orb-field"><div class="orb orb--1" style="opacity:.35;"></div><div class="orb orb--2" style="opacity:.3;"></div></div>
+  <div class="auth-card reveal in-view" style="text-align:center;">
+    <div class="icon-badge" style="margin:0 auto 18px; width:56px; height:56px; border-radius:18px; background:rgba(232,56,59,.1); color:var(--coral);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4Z"/><path d="M12 8v4M12 15.5h.01"/></svg>
+    </div>
+    <h1 style="font-size:19px;" id="admin-gate-title">Перевіряємо доступ…</h1>
+    <p class="sub" id="admin-gate-text">Секунду.</p>
+    <a class="btn btn-primary btn-sm" id="admin-gate-cta" href="login.html" style="display:none;">Увійти</a>
+  </div>
+</div>
+
+<div id="admin-app" style="display:none;">
+
 <div class="demo-banner">
-  🧪 Це прототип інтерфейсу — заявки тут демонстраційні, дані зберігаються лише у вашому браузері. <span>Реальна модерація підключиться разом із базою даних.</span>
+  🔒 Тут — реальні заявки з бази даних. Схвалення/відхилення діють по-справжньому.
 </div>
 
 <!-- ============ TOP BAR ============ -->
@@ -30,7 +46,7 @@
     </div>
     <div class="cab-topbar-actions">
       <a class="btn btn-ghost btn-sm" href="index.html">← На сайт Zooto</a>
-      <button class="btn btn-ghost btn-sm" id="btn-reset-demo" title="Скинути демо-дані">Скинути демо</button>
+      <button class="btn btn-ghost btn-sm" id="btn-refresh">↻ Оновити</button>
     </div>
   </div>
 </header>
@@ -51,7 +67,7 @@
     <div class="cab-tabs">
       <button class="cab-tab active" data-tab="overview">Огляд</button>
       <button class="cab-tab" data-tab="applications">Заявки на реєстрацію</button>
-      <button class="cab-tab" data-tab="verify">Верифікація заводчиків</button>
+      <button class="cab-tab" data-tab="verify">Тварини-батьки</button>
       <button class="cab-tab" data-tab="complaints">Скарги</button>
       <div class="cab-tabs-indicator"></div>
     </div>
@@ -114,8 +130,8 @@
   <div class="container">
     <div class="cab-panel-head">
       <div>
-        <h2>Верифікація заводчиків</h2>
-        <p>Заводчики, які завантажили повний пакет документів для бейджа «Перевірений заводчик».</p>
+        <h2>Тварини-батьки</h2>
+        <p>Родоводи й ветпаспорти, завантажені заводчиками для тварин-батьків — після схвалення оголошення малюків отримують позначку «Перевірене походження».</p>
       </div>
     </div>
     <div class="app-list" id="verify-list"></div>
@@ -162,6 +178,8 @@
   </div>
 </div>
 
-<script src="assets/admin.js"></script>
+</div>
+
+<script type="module" src="assets/admin.js"></script>
 </body>
 </html>
